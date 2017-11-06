@@ -17,3 +17,4 @@
 
 define('COMMON_DIR', basename(dirname(__FILE__)));
 define('FONTS_DIR', COMMON_DIR . "/fonts");
+
