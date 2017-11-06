@@ -1,0 +1,23 @@
+SilverStripe\Assets\Image:
+  extensions:
+    - InsiteApps\Assets\ImageExtension
+
+SilverStripe\Filesystem\Storage\DBFile:
+  extensions:
+    - InsiteApps\Assets\ImageExtension
+
+SilverStripe\Security\Group:
+  extensions:
+    - InsiteApps\Security\GroupLoginExtension
+
+PageController:
+  extensions:
+    - InsiteApps\Security\SecurityExtension
+
+SilverStripe\Security\Security:
+  extensions:
+    - InsiteApps\Security\SecurityExtension
+
+SilverStripe\Forms\FormField:
+  extensions:
+    - InsiteApps\Forms\FormFieldExtension

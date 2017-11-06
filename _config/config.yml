@@ -1,0 +1,2 @@
+SilverStripe\Control\Session:
+  cookie_secure: true

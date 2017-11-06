@@ -1,0 +1,19 @@
+{
+  "name": "insiteapps/app-base",
+  "description": "Silverstripe Insite Apps (south africa) commonly used project files",
+  "type": "silverstripe-module",
+  "keywords": ["insite"],
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Itayi Patrick Chitovoro",
+      "email": "patrick@insitesolutions.co.za"
+    }
+  ],
+  "require": {
+    "silverstripe/framework": "^4"
+  },
+  "extra": {
+    "installer-name": "app-base"
+  }
+}
