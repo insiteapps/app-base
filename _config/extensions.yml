@@ -21,3 +21,14 @@ SilverStripe\Security\Security:
 SilverStripe\Forms\FormField:
   extensions:
     - InsiteApps\Forms\FormFieldExtension
+
+
+
+
+Page:
+  extensions:
+    - InsiteApps\BaseApp\PageExtension
+
+PageController:
+  extensions:
+    - InsiteApps\BaseApp\PageControllerExtension

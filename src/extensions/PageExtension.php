@@ -17,7 +17,31 @@
      *
      */
 
-    define('COMMON_DIR', basename(dirname(__FILE__)));
-    define('APP_BASE_DIR', basename(__DIR__));
-    define('FONTS_DIR', COMMON_DIR . "/fonts");
+    namespace InsiteApps\BaseApp;
 
+
+    use SilverStripe\Core\Config\Config;
+    use SilverStripe\Dev\Debug;
+    use SilverStripe\ORM\DataExtension;
+    use SilverStripe\Core\Manifest\ModuleLoader;
+    use SilverStripe\View\SSViewer;
+    use SilverStripe\View\ThemeResourceLoader;
+
+    class PageExtension extends DataExtension
+    {
+        public function ThemeDir()
+        {
+            $loader = ThemeResourceLoader::inst();
+            $themes = SSViewer::get_themes();
+            $paths = $loader->getThemePaths($themes);
+            $Theme_path = $paths[0];
+
+            return $Theme_path;
+
+        }
+    }
+
+    class PageControllerExtension extends DataExtension
+    {
+
+    }
