@@ -61,4 +61,16 @@
                 return $image->CMSThumbnail();
             }
         }
+
+        public function onAfterWrite()
+        {
+            parent::onAfterWrite();
+
+            if ($this->ImageID) {
+                $this->Image()->doPublish();
+            }
+
+
+        }
+
     }

@@ -22,13 +22,10 @@ SilverStripe\Forms\FormField:
   extensions:
     - InsiteApps\Forms\FormFieldExtension
 
-
-
-
 Page:
   extensions:
-    - InsiteApps\BaseApp\PageExtension
+    - InsiteApps\AppBase\PageExtension
 
 PageController:
   extensions:
-    - InsiteApps\BaseApp\PageControllerExtension
+    - InsiteApps\AppBase\PageControllerExtension

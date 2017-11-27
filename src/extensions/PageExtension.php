@@ -17,9 +17,11 @@
      *
      */
 
-    namespace InsiteApps\BaseApp;
+    namespace InsiteApps\AppBase;
 
 
+    use InsiteApps\Control\ContentController;
+    use SilverStripe\Assets\Image;
     use SilverStripe\Core\Config\Config;
     use SilverStripe\Dev\Debug;
     use SilverStripe\ORM\DataExtension;
@@ -29,15 +31,57 @@
 
     class PageExtension extends DataExtension
     {
+        private static $casting = [
+            'PageSummary' => 'HTMLText',
+            "Image"       => Image::class,
+        ];
+
+
         public function ThemeDir()
         {
             $loader = ThemeResourceLoader::inst();
             $themes = SSViewer::get_themes();
             $paths = $loader->getThemePaths($themes);
-            $Theme_path = $paths[0];
+            $Theme_path = $paths[ 0 ];
 
             return $Theme_path;
 
+        }
+
+        function PageSummary( $len = 150 )
+        {
+            $aContent = array( $this->owner->Summary, $this->owner->Excerpt, $this->owner->Content );
+            $aContent = array_filter($aContent);
+            $raw_content = reset($aContent);
+
+            $content_strip = preg_replace("/<img[^>]+\>/i", " ", $raw_content);
+            $content = preg_replace("/<p[^>]*>[\s|&nbsp;]*<\/p>/", '', $content_strip);
+            $html = ContentController::truncate(str_replace([ "<p></p>", "<p> </p>" ], "", $content), $len);
+
+            /*
+            if ($html->value) {
+                return $html->value;
+            }
+            */
+
+            return $html;
+
+
+        }
+
+        function Image()
+        {
+
+            if ($this->owner->HeroImageID) {
+                return $this->HeroImage();
+            }
+            if (count($this->owner->Images())) {
+                $image = $this->Images()->first();
+
+                return $image->Image();
+            }
+
+            return false;
         }
     }
 
