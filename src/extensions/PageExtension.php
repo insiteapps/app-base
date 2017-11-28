@@ -24,6 +24,8 @@
     use SilverStripe\Assets\Image;
     use SilverStripe\Core\Config\Config;
     use SilverStripe\Dev\Debug;
+    use SilverStripe\Forms\FieldList;
+    use SilverStripe\Forms\TextField;
     use SilverStripe\ORM\DataExtension;
     use SilverStripe\Core\Manifest\ModuleLoader;
     use SilverStripe\View\SSViewer;
@@ -31,11 +33,18 @@
 
     class PageExtension extends DataExtension
     {
+
+        private static $db = array( "CustomTitle" => "Varchar(255)" );
         private static $casting = [
             'PageSummary' => 'HTMLText',
             "Image"       => Image::class,
         ];
 
+        public function updateCMSFields( FieldList $fields )
+        {
+            $fields->addFieldToTab('Root.Main', TextField::create("CustomTitle"), "Content");
+
+        }
 
         public function ThemeDir()
         {
@@ -46,6 +55,15 @@
 
             return $Theme_path;
 
+        }
+
+        function CustomPageTitle()
+        {
+            if ($ttl = $this->owner->CustomTitle) {
+                return $ttl;
+            }
+
+            return $this->owner->Title;
         }
 
         function PageSummary( $len = 150 )

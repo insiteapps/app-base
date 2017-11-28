@@ -11,6 +11,7 @@
 
     namespace InsiteApps\ORM;
 
+    use SilverStripe\CMS\Model\SiteTree;
     use SilverStripe\Control\Director;
     use SilverStripe\Core\Config\Config;
     use SilverStripe\Core\Convert;
@@ -108,7 +109,7 @@
         */
         public function generateUniqueURLSegment( $title )
         {
-            $URLSegment = singleton('SiteTree')->generateURLSegment($title);
+            $URLSegment = singleton(SiteTree::class)->generateURLSegment($title);
             $prevurlsegment = $URLSegment;
             $i = 1;
             while (!$this->validURLSegment($URLSegment)) {
