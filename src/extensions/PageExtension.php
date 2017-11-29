@@ -40,6 +40,8 @@
             "Image"       => Image::class,
         ];
 
+
+
         public function updateCMSFields( FieldList $fields )
         {
             $fields->addFieldToTab('Root.Main', TextField::create("CustomTitle"), "Content");
@@ -105,5 +107,6 @@
 
     class PageControllerExtension extends DataExtension
     {
+
 
     }

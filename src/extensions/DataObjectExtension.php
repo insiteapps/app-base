@@ -30,7 +30,10 @@
 
     class DataObjectExtension extends DataExtension
     {
-
+        function GoogleAPIKey()
+        {
+            return GOOGLE_MAP_API_KEY;
+        }
         /*
         * Animate.css classes
         * A DO helper method that enables us to list place a random list of
