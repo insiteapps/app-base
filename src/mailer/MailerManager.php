@@ -53,6 +53,7 @@
             }
             try {
                 $email->send();
+                Debug::show($email);
             } catch (\Exception $e) {
                 Debug::show($e->getMessage());
             }
