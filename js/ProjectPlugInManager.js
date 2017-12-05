@@ -1,7 +1,7 @@
 var AjaxLoading = function () {
     return {
-        start: function (id, reverse) {
-            AjaxLoading = this.AjaxLoading();
+        start: function (id, reverse, dark) {
+            AjaxLoading = this.AjaxLoading(dark);
             var $container = $("#" + id);
             $container.append(AjaxLoading);
             var AjaxLoading = $container.find(".AjaxLoading");
@@ -11,8 +11,12 @@ var AjaxLoading = function () {
                 AjaxLoading.show();
             }
         },
-        AjaxLoading: function () {
-            return "<div class=\"AjaxLoading\">Processing ...</div>";
+        AjaxLoading: function (dark) {
+            var dark_class = "";
+            if (typeof dark != "undefined") {
+                dark_class = "dark";
+            }
+            return "<div class=\"AjaxLoading " + dark_class + " \">Processing ...</div>";
         },
         AjaxLoadingGears: function () {
             return "<div class=\"AjaxLoadingGears\"></div>";

@@ -392,7 +392,10 @@
 
         public static function getCountryList()
         {
-            return static::$aCountryList;
+            $aCountryList = static::$aCountryList;
+
+            return array_combine(array_values($aCountryList), array_values($aCountryList));
+
         }
 
         /**

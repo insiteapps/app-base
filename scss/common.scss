@@ -11,6 +11,12 @@
   background: rgba(255, 255, 255, .7) url(../images/loading.gif) 50% 50% no-repeat;
   border: 0px solid #fefefe;
   color: #000;
+  text-align: center;
+  font-weight: 700;
+  &.dark {
+    background: rgba(0, 0, 0, .7) url(../images/loading.gif) 50% 50% no-repeat;
+    color: #fff;
+  }
 }
 
 .AjaxLoadingGears {
@@ -34,7 +40,7 @@
 
   #modalBody {
     .AjaxLoading {
-      position: relative;
+      //position: relative;
     }
   }
 }
