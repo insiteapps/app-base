@@ -18,9 +18,9 @@
                 <p style="color:#000000; font-weight:bold; font-size:24px; font-family:Arial, sans-serif; line-height:2;">
                     <span style="text-transform:capitalize;">$Name</span>, your submission was successful</p>
                 <p style="color:#535353; font-size:18px; font-family:Arial, sans-serif; line-height1.2; padding-bottom:25px;">
-                    We have received your message and would like to thank you for writing to us. If your inquiry is
+                    We have received your message and would like to thank you for writing to us.  <br>If your inquiry is
                     urgent,
-                    <br>please use the telephone number listed below to talk to one of our staff members.
+                   please use the telephone number listed below to talk to one of our staff members.
                     <br>Otherwise, we will reply by email as soon as possible.</p>
                 <p style="color:#535353; font-weight:bold; font-size:18px; font-family:Arial, sans-serif; line-height1.2; padding-bottom:25px;">
                     <strong>Regards,<br/>{$SiteConfig.Title}</strong></p>
