@@ -3,6 +3,7 @@
     namespace InsiteApps\AppBase\Mailer;
 
     use SilverStripe\Control\Controller;
+    use SilverStripe\Control\Director;
     use SilverStripe\Control\Email\Email;
     use SilverStripe\Dev\Debug;
 
@@ -66,6 +67,7 @@
             $oRecipients = $this->getEmailRecipients();
             if (count($oRecipients)) {
                 foreach ($oRecipients as $oRecipient) {
+                 //  $from =  isset($data[ "Email" ]) ? $data[ "Email" ] : Director::absoluteBaseURL();
                     $this->send_email($data[ "Email" ], [ "email" => $oRecipient->Email, "name" => $oRecipient->Name ], null, null, $subject, $template, $data);
                 }
             }

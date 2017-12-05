@@ -59,8 +59,8 @@
             $btn->addExtraClass("btn btn-primary hide");
 
             $aRequiredFields = array();
-            $aRequiredFields[] = "Name";
-            $aRequiredFields[] = "Email";
+            //$aRequiredFields[] = "Name";
+            //$aRequiredFields[] = "Email";
 
             $requiredFields = new RequiredFields();
 
