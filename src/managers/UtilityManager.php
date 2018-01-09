@@ -65,8 +65,8 @@ class UtilityManager
      */
     public static function get_object_map( $class, $chosen = false, $key = "ID", $field = "Title" )
     {
-        $objects     = $class::get();
-        $objects_map = $objects ? $objects->map( $key, $field ) : array();
+        $oObjs       = $class::get();
+        $objects_map = $oObjs ? $oObjs->map( $key, $field ) : array();
         if ( count( $objects_map ) ) {
             $aObjects = $objects_map->toArray();
             if ( $chosen ) {
@@ -77,6 +77,18 @@ class UtilityManager
         }
         
         return false;
+    }
+    
+    /**
+     * @param $class
+     *
+     * @return array
+     */
+    public static function getObjectMap( $class )
+    {
+        $oObjs = $class::get();
+        
+        return $oObjs ? $oObjs->map()->toArray() : array();
     }
     
     public static function getTemplateList()
