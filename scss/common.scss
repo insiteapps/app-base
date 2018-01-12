@@ -44,3 +44,78 @@
     }
   }
 }
+
+
+@media (max-width: 767px) {
+  // mobile
+  html {
+
+    * h1 {
+      font-size:2rem !important;
+      line-height: 2.3rem !important;
+    }
+
+    * h2 {
+      font-size:1.625rem !important;
+      line-height: 1.825rem !important;
+    }
+
+    * h3 {
+      font-size:1.325rem !important;
+      line-height: 1.525rem !important;
+    }
+
+    * h4 {
+      font-size:1.125rem !important;
+      line-height: 1.325rem !important;
+    }
+
+    * h5 {
+      font-size:1.025rem !important;
+      line-height: 1.125rem !important;
+    }
+
+    * h6 {
+      font-size:1rem !important;
+      line-height: 1.025rem !important;
+    }
+  }
+}
+
+@media (max-width: 992px) and (min-width: 767px){
+  //tablet
+  html {
+
+    * h1 {
+      font-size:2.8rem !important;
+      line-height: 2.95rem !important;
+    }
+
+    * h2 {
+      font-size:1.825rem !important;
+      line-height: 2.025rem !important;
+    }
+
+    * h3 {
+      font-size:1.525rem !important;
+      line-height: 1.725rem !important;
+    }
+
+    * h4 {
+      font-size:1.125rem !important;
+      line-height: 1.325rem !important;
+    }
+
+    * h5 {
+      font-size:1.025rem !important;
+      line-height: 1.125rem !important;
+    }
+
+    * h6 {
+      font-size:1rem !important;
+      line-height: 1.075rem !important;
+    }
+  }
+}
+
+
