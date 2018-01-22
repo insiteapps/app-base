@@ -11,6 +11,11 @@ var AjaxLoading = function () {
                 AjaxLoading.show();
             }
         },
+        end: function (id) {
+            var $container = $("#" + id);
+            var AjaxLoading = $container.find(".AjaxLoading");
+            AjaxLoading.remove();
+        },
         AjaxLoading: function (dark) {
             var dark_class = "";
             if (typeof dark != "undefined") {
