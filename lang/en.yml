@@ -1,0 +1,39 @@
+en:
+  CancelFormAction:
+    CANCEL: Cancel
+  InsiteApps\AppBase\ContactDetail:
+    PLURALNAME: 'Contact Details'
+    PLURALS:
+      one: 'A Contact Detail'
+      other: '{count} Contact Details'
+    SINGULARNAME: 'Contact Detail'
+  InsiteApps\AppBase\EnquirySubmission:
+    PLURALNAME: 'Enquiry Submissions'
+    PLURALS:
+      one: 'An Enquiry Submission'
+      other: '{count} Enquiry Submissions'
+    SINGULARNAME: 'Enquiry Submission'
+  InsiteApps\AppBase\Mailer\EmailRecipient:
+    PLURALNAME: 'Email Recipients'
+    PLURALS:
+      one: 'An Email Recipient'
+      other: '{count} Email Recipients'
+    SINGULARNAME: 'Email Recipient'
+  InsiteApps\Assets\Multimedia:
+    PLURALNAME: Multimedias
+    PLURALS:
+      one: 'A Multimedia'
+      other: '{count} Multimedias'
+    SINGULARNAME: Multimedia
+  InsiteApps\Forms\CustomConfirmedPasswordField:
+    ATLEAST: 'Passwords must be at least {min} characters long.'
+    BETWEEN: 'Passwords must be {min} to {max} characters long.'
+    CONFIRMPASSWORD: 'Confirm Password'
+    MAXIMUM: 'Passwords must be at most {max} characters long.'
+    PASSWORD: Password
+    SHOWONCLICKTITLE: 'Change Password'
+    VALIDATIONPASSWORDSDONTMATCH: 'Passwords don''t match'
+    VALIDATIONPASSWORDSNOTEMPTY: 'Passwords can''t be empty'
+    VALIDATIONSTRONGPASSWORD: 'Passwords must have at least one digit and one alphanumeric character'
+  InsiteApps\Security\MembershipSecurity:
+    LOGIN_MESSAGE: '<p>Your session has timed out due to inactivity</p>'

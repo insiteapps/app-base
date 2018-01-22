@@ -101,11 +101,11 @@ class CustomConfirmedPasswordField extends FormField
         $this->children = new FieldList(
             new ConfirmedPasswordField(
                 "{$name}[_Password]",
-                (isset($title)) ? $title : _t('Member.PASSWORD', 'Password')
+                (isset($title)) ? $title : _t(__CLASS__.'.PASSWORD', 'Password')
             ),
             new ConfirmedPasswordField(
                 "{$name}[_ConfirmPassword]",
-                (isset($titleConfirmField)) ? $titleConfirmField : _t('Member.CONFIRMPASSWORD', 'Confirm Password')
+                (isset($titleConfirmField)) ? $titleConfirmField : _t(__CLASS__.'.CONFIRMPASSWORD', 'Confirm Password')
             )
         );
         
@@ -146,7 +146,7 @@ class CustomConfirmedPasswordField extends FormField
                 $title = $this->showOnClickTitle;
             } else {
                 $title = _t(
-                    'ConfirmedPasswordField.SHOWONCLICKTITLE',
+                    __CLASS__.'.SHOWONCLICKTITLE',
                     'Change Password',
                     
                     'Label of the link which triggers display of the "change password" formfields'
@@ -350,7 +350,7 @@ class CustomConfirmedPasswordField extends FormField
         if ($value != $passwordConfirmField->Value()) {
             $validator->validationError(
                 $name,
-                _t('Form.VALIDATIONPASSWORDSDONTMATCH', "Passwords don't match"),
+                _t(__CLASS__.'.VALIDATIONPASSWORDSDONTMATCH', "Passwords don't match"),
                 "validation",
                 false
             );
@@ -363,7 +363,7 @@ class CustomConfirmedPasswordField extends FormField
             if (!$value || !$passwordConfirmField->Value()) {
                 $validator->validationError(
                     $name,
-                    _t('Form.VALIDATIONPASSWORDSNOTEMPTY', "Passwords can't be empty"),
+                    _t(__CLASS__.'.VALIDATIONPASSWORDSNOTEMPTY', "Passwords can't be empty"),
                     "validation",
                     false
                 );
@@ -377,21 +377,21 @@ class CustomConfirmedPasswordField extends FormField
             if ($this->minLength && $this->maxLength) {
                 $limit = "{{$this->minLength},{$this->maxLength}}";
                 $errorMsg = _t(
-                    'ConfirmedPasswordField.BETWEEN',
+                    __CLASS__.'.BETWEEN',
                     'Passwords must be {min} to {max} characters long.',
                     array('min' => $this->minLength, 'max' => $this->maxLength)
                 );
             } elseif ($this->minLength) {
                 $limit = "{{$this->minLength}}.*";
                 $errorMsg = _t(
-                    'ConfirmedPasswordField.ATLEAST',
+                    __CLASS__.'.ATLEAST',
                     'Passwords must be at least {min} characters long.',
                     array('min' => $this->minLength)
                 );
             } elseif ($this->maxLength) {
                 $limit = "{0,{$this->maxLength}}";
                 $errorMsg = _t(
-                    'ConfirmedPasswordField.MAXIMUM',
+                    __CLASS__.'.MAXIMUM',
                     'Passwords must be at most {max} characters long.',
                     array('max' => $this->maxLength)
                 );
@@ -411,7 +411,7 @@ class CustomConfirmedPasswordField extends FormField
             if (!preg_match('/^(([a-zA-Z]+\d+)|(\d+[a-zA-Z]+))[a-zA-Z0-9]*$/', $value)) {
                 $validator->validationError(
                     $name,
-                    _t('Form.VALIDATIONSTRONGPASSWORD',
+                    _t(__CLASS__.'.VALIDATIONSTRONGPASSWORD',
                         "Passwords must have at least one digit and one alphanumeric character"),
                     "validation",
                     false
@@ -450,7 +450,7 @@ class CustomConfirmedPasswordField extends FormField
     public function performReadonlyTransformation()
     {
         $field = $this->castedCopy('ReadonlyField')
-            ->setTitle($this->title ? $this->title : _t('Member.PASSWORD'))
+            ->setTitle($this->title ? $this->title : _t(__CLASS__.'.PASSWORD','Password'))
             ->setValue('*****');
         
         return $field;
