@@ -2,7 +2,7 @@ var AjaxLoading = function () {
     return {
         start: function (id, reverse, dark) {
             AjaxLoading = this.AjaxLoading(dark);
-            var $container = $("#" + id);
+            var $container = jQuery"#" + id);
             $container.append(AjaxLoading);
             var AjaxLoading = $container.find(".AjaxLoading");
             if (reverse) {
@@ -12,7 +12,7 @@ var AjaxLoading = function () {
             }
         },
         end: function (id) {
-            var $container = $("#" + id);
+            var $container = jQuery("#" + id);
             var AjaxLoading = $container.find(".AjaxLoading");
             AjaxLoading.remove();
         },
@@ -32,10 +32,10 @@ var AjaxLoading = function () {
 var BootstrapDateTimePicker = function () {
     return {
         init: function () {
-            $(".datepickerfield").datetimepicker({
+            jQuery(".datepickerfield").datetimepicker({
                 format: 'YYYY-MM-DD'
             });
-            $(".timepickerfield").datetimepicker({
+            jQuery(".timepickerfield").datetimepicker({
                 format: 'HH:mm',
             });
         }
@@ -67,7 +67,7 @@ var NotyManager = function () {
 var _aj = function () {
     return {
         i: function (u, d, s, e, t, dt) {
-            $.ajax({
+            jQuery.ajax({
                 url: u,
                 type: t ? t : 'post',
                 dataType: dt ? dt : 'json',
@@ -90,3 +90,39 @@ var _aj = function () {
         alert('Sorry there has been an error');
     };
 }();
+
+
+function loadScript(scriptName, callback) {
+
+    if (!jsArray[scriptName]) {
+        var promise = jQuery.Deferred();
+
+        // adding the script tag to the head as suggested before
+        var body = document.getElementsByTagName('body')[0],
+            script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = scriptName;
+
+        // then bind the event to the callback function
+        // there are several events for cross browser compatibility
+        script.onload = function () {
+            promise.resolve();
+        };
+
+        // fire the loading
+        body.appendChild(script);
+
+        // clear DOM reference
+        //body = null;
+        //script = null;
+
+        jsArray[scriptName] = promise.promise();
+
+    } else if (debugState)
+        root.root.console.log("This script was already loaded %c: " + scriptName, debugStyle_warning);
+
+    jsArray[scriptName].then(function () {
+        if (typeof callback === 'function')
+            callback();
+    });
+}
