@@ -1,24 +1,24 @@
 var AjaxLoading = function () {
     return {
         start: function (id, reverse, dark) {
-            AjaxLoading = this.AjaxLoading(dark);
-            var $container = jQuery"#" + id);
-            $container.append(AjaxLoading);
-            var AjaxLoading = $container.find(".AjaxLoading");
+
+            var $container = jQuery("#" + id);
+            $container.append(this._AJL(dark));
+            var elem = $container.find(".AjaxLoading");
             if (reverse) {
-                AjaxLoading.remove();
+                elem.remove();
             } else {
-                AjaxLoading.show();
+                elem.show();
             }
         },
         end: function (id) {
             var $container = jQuery("#" + id);
-            var AjaxLoading = $container.find(".AjaxLoading");
-            AjaxLoading.remove();
+            var elem = $container.find(".AjaxLoading");
+            elem.remove();
         },
-        AjaxLoading: function (dark) {
+        _AJL: function (dark) {
             var dark_class = "";
-            if (typeof dark != "undefined") {
+            if (typeof dark !== "undefined") {
                 dark_class = "dark";
             }
             return "<div class=\"AjaxLoading " + dark_class + " \">Processing ...</div>";
