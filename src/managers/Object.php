@@ -4,7 +4,7 @@ namespace InsiteApps\Common;
 
 use SilverStripe\Core\Injector\Injectable;
 
-class Object
+class ObjectManager
 {
     use Injectable;
 }
