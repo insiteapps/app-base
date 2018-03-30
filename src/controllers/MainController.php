@@ -53,13 +53,12 @@ class MainController extends PageController
     }
     
     /**
-     *
      * @param array $request
      * @param array $Unset
      *
-     * @return array
+     * @return array|string
      */
-    public static function cleanREQUEST(array $request, array $Unset = array())
+    public static function cleanREQUEST(array $request = array(), array $Unset = array())
     {
         $request = Convert::raw2sql($request);
         $aUnset = array('url', 'SecurityID');
