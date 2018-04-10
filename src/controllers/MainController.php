@@ -24,6 +24,27 @@ class MainController extends PageController
         }
     }
     
+    
+    protected function getPostData()
+    {
+        $data = filter_input_array( INPUT_POST);
+        if ( count( $data ) ) {
+            return RecordController::cleanREQUEST( $data );
+        }
+        
+        return [];
+    }
+    
+    protected function getRequestData()
+    {
+        $data = filter_input_array( INPUT_GET);
+        if ( count( $data ) ) {
+            return RecordController::cleanREQUEST( $data );
+        }
+        
+        return [];
+    }
+    
     function Member()
     {
         return Security::getCurrentUser();
