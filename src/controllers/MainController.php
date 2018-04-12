@@ -164,4 +164,10 @@ class MainController extends Controller
         
     }
     
+    public static function IsAdmin()
+    {
+        return Permission::check( "ADMIN" );
+    }
+    
+    
 }
