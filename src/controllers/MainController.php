@@ -3,6 +3,7 @@
 namespace InsiteApps\Control;
 
 use InsiteApps\Data\Curl\CurlManager;
+use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Convert;
 use SilverStripe\ORM\DataObject;
@@ -13,7 +14,7 @@ use SilverStripe\View\Requirements;
 use Page;
 use PageController;
 
-class MainController extends PageController
+class MainController extends Controller
 {
     
     public function HasToLoginFirst()
