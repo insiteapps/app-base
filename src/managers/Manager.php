@@ -25,6 +25,7 @@ use SilverStripe\Security\Security;
 
 class Manager
 {
+    
     use Injectable;
     
     /**
@@ -33,8 +34,9 @@ class Manager
      *
      * @return array
      */
-    public function getNumericValues($x = 0, $max = 4)
+    public function getNumericValues( $x = 0, $max = 4 )
     {
+        
         $arrValues = array();
         for ( $i = $x; $i <= $max; $i++ ) {
             $arrValues[ $i ] = $i;
@@ -50,10 +52,10 @@ class Manager
      */
     public static function get_admin_list()
     {
-        $oMembers = Member::get()
-            ->leftJoin("Group_Members", "Group_Members.MemberID = Member.ID")
-            ->leftJoin("Permission", "Permission.GroupID = Group_Members.GroupID")
-            ->filter(["Permission.Code" => 'ADMIN']);
+        
+        $oMembers = Member::get()->leftJoin( "Group_Members", "Group_Members.MemberID = Member.ID" )
+                          ->leftJoin( "Permission", "Permission.GroupID = Group_Members.GroupID" )
+                          ->filter( [ "Permission.Code" => 'ADMIN' ] );
         
         return $oMembers;
     }
@@ -63,9 +65,10 @@ class Manager
      */
     public static function get_fonts_library_names()
     {
-        $url = "https://cdn.insiteapps.co.za/fonts/names/";
+        
+        $url      = "https://cdn.insiteapps.co.za/fonts/names/";
         $oManager = new CurlManager();
-        $results = $oManager->processCurlWithHeaders($url);
+        $results  = $oManager->processCurlWithHeaders( $url );
         
         return $results;
         
@@ -73,6 +76,28 @@ class Manager
     
     function Member()
     {
+        
         return Security::getCurrentUser();
+    }
+    
+   
+    /**
+     * @param $pure_string
+     * @param $encryption_key
+     *
+     * @return string
+     */
+    public static   function encrypt($pure_string, $encryption_key) {
+        return openssl_encrypt($pure_string,"AES-128-ECB",$encryption_key);
+    }
+    
+    /**
+     * @param $encrypted_string
+     * @param $encryption_key
+     *
+     * @return string
+     */
+    public static  function decrypt($encrypted_string, $encryption_key) {
+        return openssl_decrypt($encrypted_string,"AES-128-ECB",$encryption_key);
     }
 }
