@@ -46,7 +46,7 @@ class MainController extends Controller
         return [];
     }
     
-    function Member()
+    public  function Member()
     {
         return Security::getCurrentUser();
     }
@@ -116,7 +116,7 @@ class MainController extends Controller
         return $this->owner->renderWith(array($template, 'Page'));
     }
     
-    function generate_page_controller($title = "Page")
+    public  function generate_page_controller($title = "Page")
     {
         $tmpPage = new Page();
         $tmpPage->Title = $title;
@@ -131,22 +131,22 @@ class MainController extends Controller
         return $controller;
     }
     
-    function urlParamsID()
+    public  function urlParamsID()
     {
         return Convert::raw2sql($this->urlParams['ID']);
     }
     
-    function urlParamsOtherID()
+    public  function urlParamsOtherID()
     {
         return Convert::raw2sql($this->urlParams['OtherID']);
     }
     
-    function urlParamsAction()
+    public  function urlParamsAction()
     {
         return Convert::raw2sql($this->urlParams['Action']);
     }
     
-    function urlParamsParts()
+    public   function urlParamsParts()
     {
         return Convert::raw2sql($this->urlParams);
     }
