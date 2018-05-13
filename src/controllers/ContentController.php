@@ -12,10 +12,7 @@ namespace InsiteApps\Control;
 
 use SilverStripe\Core\Convert;
 use SilverStripe\ORM\FieldType\DBField;
-<<<<<<< HEAD
-=======
 use SilverStripe\ORM\FieldType\DBHTMLText;
->>>>>>> faa92d7287a4c2a98302a1229952f166ab386f81
 use SilverStripe\View\Requirements;
 
 class ContentController extends MainController
@@ -24,19 +21,13 @@ class ContentController extends MainController
     
     public static function truncate( $text, $length = "50", $ending = '...', $exact = false, $considerHtml = true )
     {
-<<<<<<< HEAD
-        if ( $considerHtml ) {
-            // if the plain text is shorter than the maximum length, return the whole text
-            if ( strlen( preg_replace( '/<.*?>/', '', $text ) ) <= $length ) {
-                return $text;
-=======
         
         if ( $considerHtml ) {
             // if the plain text is shorter than the maximum length, return the whole text
             if ( strlen( preg_replace( '/<.*?>/', '', $text ) ) <= $length ) {
                 $html = DBField::create_field( DBHTMLText::class, $text );
                 return $html->value;
->>>>>>> faa92d7287a4c2a98302a1229952f166ab386f81
+
             }
             // splits all html-tags to scanable lines
             preg_match_all( '/(<.+?>)?([^<>]*)/s', $text, $lines, PREG_SET_ORDER );
@@ -120,13 +111,11 @@ class ContentController extends MainController
             }
         }
         
-<<<<<<< HEAD
-        return DBField::create_field( 'HTMLText', $truncate );
-=======
+
         $html = DBField::create_field( DBHTMLText::class, $truncate );
         
         return $html->value;
->>>>>>> faa92d7287a4c2a98302a1229952f166ab386f81
+
     }
     
 }
