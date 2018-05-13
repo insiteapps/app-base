@@ -19,16 +19,18 @@ class MainController extends Controller
     
     public function HasToLoginFirst()
     {
+        
         $oMember = $this->Member();
-        if (!$oMember) {
-            return self::redirect(Security::login_url());
+        if ( !$oMember ) {
+            return $this->redirect( Security::login_url() );
         }
     }
     
     
     protected function getPostData()
     {
-        $data = filter_input_array( INPUT_POST);
+        
+        $data = filter_input_array( INPUT_POST );
         if ( count( $data ) ) {
             return RecordController::cleanREQUEST( $data );
         }
@@ -36,38 +38,52 @@ class MainController extends Controller
         return [];
     }
     
-    protected function getRequestData()
+    /**
+     * @param null $query
+     *
+     * @return array|string
+     */
+    protected function getRequestData( $query = null )
     {
-        $data = filter_input_array( INPUT_GET);
-        if ( count( $data ) ) {
-            return RecordController::cleanREQUEST( $data );
+        
+        $data = filter_input_array( INPUT_GET );
+        if ( $data ) {
+            $aData = RecordController::cleanREQUEST( $data );
+            if ( $query ) {
+                return $aData[ $query ];
+            }
+            
+            return $aData;
         }
         
         return [];
     }
     
-    public  function Member()
+    public function Member()
     {
+        
         return Security::getCurrentUser();
     }
     
     public static function find_or_make_members_group()
     {
-        $group = DataObject::get_one("Group", "Code='members'");
-        if (!$group) {
-            $group = new Group();
-            $group->Code = 'members';
+        
+        $group = DataObject::get_one( "Group", "Code='members'" );
+        if ( !$group ) {
+            $group        = new Group();
+            $group->Code  = 'members';
             $group->Title = 'Members';
             $group->write();
-            Permission::grant($group->ID, 'SITE_MEMBER');
+            Permission::grant( $group->ID, 'SITE_MEMBER' );
         }
         
         return $group;
     }
     
-    static public function AddProtocol($url)
+    static public function AddProtocol( $url )
     {
-        if (strtolower(substr($url, 0, 8)) !== 'https://' && strtolower(substr($url, 0, 7)) !== 'http://') {
+        
+        if ( strtolower( substr( $url, 0, 8 ) ) !== 'https://' && strtolower( substr( $url, 0, 7 ) ) !== 'http://' ) {
             return 'http://' . $url;
         }
         
@@ -80,13 +96,17 @@ class MainController extends Controller
      *
      * @return array|string
      */
-    public static function cleanREQUEST(array $request = array(), array $Unset = array())
+    public static function cleanREQUEST( array $request = array(), array $Unset = array() )
     {
-        $request = Convert::raw2sql($request);
-        $aUnset = array('url', 'SecurityID');
-        $arrUnset = array_merge($aUnset, $Unset);
+        
+        $request  = Convert::raw2sql( $request );
+        $aUnset   = array(
+            'url',
+            'SecurityID',
+        );
+        $arrUnset = array_merge( $aUnset, $Unset );
         foreach ( $arrUnset as $value ) {
-            unset($request[ $value ]);
+            unset( $request[ $value ] );
         }
         
         return $request;
@@ -94,8 +114,9 @@ class MainController extends Controller
     
     public function get_listing()
     {
-        $url = Convert::raw2sql($this->urlParams["Action"]);
-        $listing = DataObject::get_one("Listing", sprintf("URLSegment = '%s'", $url));
+        
+        $url     = Convert::raw2sql( $this->urlParams[ "Action" ] );
+        $listing = DataObject::get_one( "Listing", sprintf( "URLSegment = '%s'", $url ) );
         
         return $listing;
     }
@@ -105,50 +126,59 @@ class MainController extends Controller
      *
      * @return mixed
      */
-    public function setRenderWithPageTemplate($template)
+    public function setRenderWithPageTemplate( $template )
     {
-        if (Director::is_ajax()) {
+        
+        if ( Director::is_ajax() ) {
             Requirements::clear();
             
-            return $this->owner->renderWith(array($template));
+            return $this->owner->renderWith( array( $template ) );
         }
         
-        return $this->owner->renderWith(array($template, 'Page'));
+        return $this->owner->renderWith( array(
+            $template,
+            'Page',
+        ) );
     }
     
-    public  function generate_page_controller($title = "Page")
+    public function generate_page_controller( $title = "Page" )
     {
-        $tmpPage = new Page();
-        $tmpPage->Title = $title;
-        $tmpPage->URLSegment = strtolower(str_replace(' ', '-', $title));
-        // Disable ID-based caching  of the log-in page by making it a random number
-        $tmpPage->ID = -1 * rand(1, 10000000);
         
-        $controller = PageController::create($tmpPage);
+        $tmpPage             = new Page();
+        $tmpPage->Title      = $title;
+        $tmpPage->URLSegment = strtolower( str_replace( ' ', '-', $title ) );
+        // Disable ID-based caching  of the log-in page by making it a random number
+        $tmpPage->ID = -1 * rand( 1, 10000000 );
+        
+        $controller = PageController::create( $tmpPage );
         //$controller->setDataModel($this->model);
         $controller->init();
         
         return $controller;
     }
     
-    public  function urlParamsID()
+    public function urlParamsID()
     {
-        return Convert::raw2sql($this->urlParams['ID']);
+        
+        return Convert::raw2sql( $this->urlParams[ 'ID' ] );
     }
     
-    public  function urlParamsOtherID()
+    public function urlParamsOtherID()
     {
-        return Convert::raw2sql($this->urlParams['OtherID']);
+        
+        return Convert::raw2sql( $this->urlParams[ 'OtherID' ] );
     }
     
-    public  function urlParamsAction()
+    public function urlParamsAction()
     {
-        return Convert::raw2sql($this->urlParams['Action']);
+        
+        return Convert::raw2sql( $this->urlParams[ 'Action' ] );
     }
     
-    public   function urlParamsParts()
+    public function urlParamsParts()
     {
-        return Convert::raw2sql($this->urlParams);
+        
+        return Convert::raw2sql( $this->urlParams );
     }
     
     /**
@@ -156,9 +186,10 @@ class MainController extends Controller
      */
     public static function get_fonts_library_names()
     {
-        $url = "https://cdn.insiteapps.co.za/fonts/names/";
+        
+        $url      = "https://cdn.insiteapps.co.za/fonts/names/";
         $oManager = CurlManager::create();
-        $results = $oManager->processCurlWithHeaders($url);
+        $results  = $oManager->processCurlWithHeaders( $url );
         
         return $results;
         
@@ -166,6 +197,7 @@ class MainController extends Controller
     
     public static function IsAdmin()
     {
+        
         return Permission::check( "ADMIN" );
     }
     
