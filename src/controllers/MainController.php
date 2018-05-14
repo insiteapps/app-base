@@ -19,15 +19,24 @@ class MainController extends Controller
     
     public function HasToLoginFirst()
     {
+        
         $oMember = $this->Member();
         if ( !$oMember ) {
+<<<<<<< HEAD
             return self::redirect( Security::login_url() );
+=======
+            return $this->redirect( Security::login_url() );
+>>>>>>> fa468e850a6a1b7069235cf8c36be558518544d9
         }
     }
     
     
     protected function getPostData()
     {
+<<<<<<< HEAD
+=======
+        
+>>>>>>> fa468e850a6a1b7069235cf8c36be558518544d9
         $data = filter_input_array( INPUT_POST );
         if ( count( $data ) ) {
             return RecordController::cleanREQUEST( $data );
@@ -36,11 +45,28 @@ class MainController extends Controller
         return [];
     }
     
-    protected function getRequestData()
+    /**
+     * @param null $query
+     *
+     * @return array|string
+     */
+    protected function getRequestData( $query = null )
     {
+<<<<<<< HEAD
         $data = filter_input_array( INPUT_GET );
         if ( count( $data ) ) {
             return RecordController::cleanREQUEST( $data );
+=======
+        
+        $data = filter_input_array( INPUT_GET );
+        if ( $data ) {
+            $aData = RecordController::cleanREQUEST( $data );
+            if ( $query ) {
+                return $aData[ $query ];
+            }
+            
+            return $aData;
+>>>>>>> fa468e850a6a1b7069235cf8c36be558518544d9
         }
         
         return [];
@@ -48,11 +74,16 @@ class MainController extends Controller
     
     public function Member()
     {
+        
         return Security::getCurrentUser();
     }
     
     public static function find_or_make_members_group()
     {
+<<<<<<< HEAD
+=======
+        
+>>>>>>> fa468e850a6a1b7069235cf8c36be558518544d9
         $group = DataObject::get_one( "Group", "Code='members'" );
         if ( !$group ) {
             $group        = new Group();
@@ -67,6 +98,10 @@ class MainController extends Controller
     
     static public function AddProtocol( $url )
     {
+<<<<<<< HEAD
+=======
+        
+>>>>>>> fa468e850a6a1b7069235cf8c36be558518544d9
         if ( strtolower( substr( $url, 0, 8 ) ) !== 'https://' && strtolower( substr( $url, 0, 7 ) ) !== 'http://' ) {
             return 'http://' . $url;
         }
@@ -82,6 +117,10 @@ class MainController extends Controller
      */
     public static function cleanREQUEST( array $request = array(), array $Unset = array() )
     {
+<<<<<<< HEAD
+=======
+        
+>>>>>>> fa468e850a6a1b7069235cf8c36be558518544d9
         $request  = Convert::raw2sql( $request );
         $aUnset   = array(
             'url',
@@ -97,6 +136,10 @@ class MainController extends Controller
     
     public function get_listing()
     {
+<<<<<<< HEAD
+=======
+        
+>>>>>>> fa468e850a6a1b7069235cf8c36be558518544d9
         $url     = Convert::raw2sql( $this->urlParams[ "Action" ] );
         $listing = DataObject::get_one( "Listing", sprintf( "URLSegment = '%s'", $url ) );
         
@@ -110,6 +153,10 @@ class MainController extends Controller
      */
     public function setRenderWithPageTemplate( $template )
     {
+<<<<<<< HEAD
+=======
+        
+>>>>>>> fa468e850a6a1b7069235cf8c36be558518544d9
         if ( Director::is_ajax() ) {
             Requirements::clear();
             
@@ -124,6 +171,10 @@ class MainController extends Controller
     
     public function generate_page_controller( $title = "Page" )
     {
+<<<<<<< HEAD
+=======
+        
+>>>>>>> fa468e850a6a1b7069235cf8c36be558518544d9
         $tmpPage             = new Page();
         $tmpPage->Title      = $title;
         $tmpPage->URLSegment = strtolower( str_replace( ' ', '-', $title ) );
@@ -139,21 +190,37 @@ class MainController extends Controller
     
     public function urlParamsID()
     {
+<<<<<<< HEAD
+=======
+        
+>>>>>>> fa468e850a6a1b7069235cf8c36be558518544d9
         return Convert::raw2sql( $this->urlParams[ 'ID' ] );
     }
     
     public function urlParamsOtherID()
     {
+<<<<<<< HEAD
+=======
+        
+>>>>>>> fa468e850a6a1b7069235cf8c36be558518544d9
         return Convert::raw2sql( $this->urlParams[ 'OtherID' ] );
     }
     
     public function urlParamsAction()
     {
+<<<<<<< HEAD
+=======
+        
+>>>>>>> fa468e850a6a1b7069235cf8c36be558518544d9
         return Convert::raw2sql( $this->urlParams[ 'Action' ] );
     }
     
     public function urlParamsParts()
     {
+<<<<<<< HEAD
+=======
+        
+>>>>>>> fa468e850a6a1b7069235cf8c36be558518544d9
         return Convert::raw2sql( $this->urlParams );
     }
     
@@ -162,6 +229,10 @@ class MainController extends Controller
      */
     public static function get_fonts_library_names()
     {
+<<<<<<< HEAD
+=======
+        
+>>>>>>> fa468e850a6a1b7069235cf8c36be558518544d9
         $url      = "https://cdn.insiteapps.co.za/fonts/names/";
         $oManager = CurlManager::create();
         $results  = $oManager->processCurlWithHeaders( $url );
@@ -172,6 +243,7 @@ class MainController extends Controller
     
     public static function IsAdmin()
     {
+        
         return Permission::check( "ADMIN" );
     }
     
