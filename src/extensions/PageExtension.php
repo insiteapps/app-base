@@ -101,7 +101,7 @@ class PageExtension extends DataExtension
         if ( $this->owner->HeroImageID ) {
             return $this->HeroImage();
         }
-       
+        
         if ( count( $this->owner->Images() ) ) {
             $oImage = $this->owner->Images()->first();
             
@@ -114,6 +114,6 @@ class PageExtension extends DataExtension
 
 class PageControllerExtension extends DataExtension
 {
-
-
+    
+    
 }

@@ -12,9 +12,9 @@ use SilverStripe\ORM\DataExtension;
 
 class FormFieldExtension extends DataExtension
 {
-    function onBeforeRender($field)
+    function onBeforeRender( $field )
     {
-        $_a = array();
+        $_a   = array();
         $_a[] = TextField::class;
         $_a[] = EmailField::class;
         $_a[] = TextareaField::class;
@@ -22,8 +22,8 @@ class FormFieldExtension extends DataExtension
         $_a[] = NumericField::class;
         
         
-        if (in_array(get_class($field), $_a)) {
-            $field->addExtraClass('form-control');
+        if ( in_array( get_class( $field ), $_a ) ) {
+            $field->addExtraClass( 'form-control' );
         }
         
     }

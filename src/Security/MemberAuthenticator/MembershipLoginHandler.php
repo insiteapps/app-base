@@ -16,7 +16,7 @@ class MembershipLoginHandler extends LoginHandler
 {
     private static $allowed_actions = [
         'MembershipLoginForm',
-        'doLogin'
+        'doLogin',
     ];
     
     /**
@@ -27,11 +27,7 @@ class MembershipLoginHandler extends LoginHandler
      */
     public function MembershipLoginForm()
     {
-        return MembershipLoginForm::create(
-            $this,
-            get_class($this->authenticator),
-            __FUNCTION__
-        );
+        return MembershipLoginForm::create( $this, get_class( $this->authenticator ), __FUNCTION__ );
     }
     
     /**
@@ -42,7 +38,7 @@ class MembershipLoginHandler extends LoginHandler
     protected function redirectAfterSuccessfulLogin()
     {
         // Check password expiry
-        if (Security::getCurrentUser()->isPasswordExpired()) {
+        if ( Security::getCurrentUser()->isPasswordExpired() ) {
             // Redirect the user to the external password change form if necessary
             return $this->redirectToChangePassword();
         }
@@ -50,27 +46,27 @@ class MembershipLoginHandler extends LoginHandler
         
         $oMember = Security::getCurrentUser();
         $oGroups = Group::get();
-        if ($oMember) {
+        if ( $oMember ) {
             foreach ( $oGroups as $oGroup ) {
-                if ($oMember->inGroup($oGroup->ID) && $oGroup->GoToAdmin == 1) {
-                    $this->redirect(Director::baseURL() . 'admin');
+                if ( $oMember->inGroup( $oGroup->ID ) && $oGroup->GoToAdmin == 1 ) {
+                    $this->redirect( Director::baseURL() . 'admin' );
                     
                     return true;
-                } elseif ($oMember->inGroup($oGroup->ID) && $oGroup->LinkPageID != 0) {
+                } elseif ( $oMember->inGroup( $oGroup->ID ) && $oGroup->LinkPageID != 0 ) {
                     $pageLink = $oGroup->LinkPage()->Link();
-                    $this->redirect($pageLink);
+                    $this->redirect( $pageLink );
                     
                     return true;
                 }
             }
         }
         
-        if (isset($_REQUEST['BackURL']) && $_REQUEST['BackURL'] && Director::is_site_url($_REQUEST['BackURL'])) {
-            $BackURL = $_REQUEST['BackURL'];
+        if ( isset( $_REQUEST[ 'BackURL' ] ) && $_REQUEST[ 'BackURL' ] && Director::is_site_url( $_REQUEST[ 'BackURL' ] ) ) {
+            $BackURL = $_REQUEST[ 'BackURL' ];
             
-            return $this->redirect($BackURL);
+            return $this->redirect( $BackURL );
         } else {
-            return $this->redirect('/');
+            return $this->redirect( '/' );
         }
         
     }

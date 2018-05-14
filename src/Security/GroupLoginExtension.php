@@ -19,13 +19,13 @@ class GroupLoginExtension extends DataExtension
         "LinkPage" => "SiteTree",
     );
     
-    public function updateCMSFields(FieldList $fields)
+    public function updateCMSFields( FieldList $fields )
     {
-        $fields->addFieldsToTab("Root.Members(after login)", [
-            CheckboxField::create("GoToAdmin", " Go to Admin area"),
-            TreeDropdownField::create("LinkPageID", "Or select a Page to redirect to", "SiteTree"),
-        ], 'Members');
-     
+        $fields->addFieldsToTab( "Root.Members(after login)", [
+            CheckboxField::create( "GoToAdmin", " Go to Admin area" ),
+            TreeDropdownField::create( "LinkPageID", "Or select a Page to redirect to", "SiteTree" ),
+        ], 'Members' );
+        
     }
     
 }

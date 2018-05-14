@@ -20,17 +20,18 @@ class CancelFormAction extends FormAction
      */
     private $link;
     
-    function __construct($link = "", $title = "", $form = null, $extraData = null, $extraClass = '')
+    function __construct( $link = "", $title = "", $form = null, $extraData = null, $extraClass = '' )
     {
-        if (!$title)
-            $title = _t('CancelFormAction.CANCEL', 'Cancel');
+        if ( !$title ) {
+            $title = _t( 'CancelFormAction.CANCEL', 'Cancel' );
+        }
         
-        $this->setLink($link);
+        $this->setLink( $link );
         
-        parent::__construct('CancelFormAction', $title, $form, $extraData, $extraClass);
+        parent::__construct( 'CancelFormAction', $title, $form, $extraData, $extraClass );
     }
     
-    function setLink($link)
+    function setLink( $link )
     {
         $this->link = $link;
     }
@@ -40,24 +41,22 @@ class CancelFormAction extends FormAction
         return $this->link;
     }
     
-    public function Field($properties = array())
+    public function Field( $properties = array() )
     {
         $attributes = array(
-            'class'    => 'CancelFormAction btn btn-danger cancel ' . ($this->extraClass() ? $this->extraClass() : ''),
+            'class'    => 'CancelFormAction btn btn-danger cancel ' . ( $this->extraClass() ? $this->extraClass() : '' ),
             'id'       => $this->id(),
             'name'     => $this->action,
-            'tabindex' => $this->getAttribute('tabindex'),
+            'tabindex' => $this->getAttribute( 'tabindex' ),
             'href'     => $this->getLink(),
         );
         
-        if ($this->isReadonly()) {
-            $attributes['disabled'] = 'disabled';
-            $attributes['class'] = $attributes['class'] . ' disabled';
+        if ( $this->isReadonly() ) {
+            $attributes[ 'disabled' ] = 'disabled';
+            $attributes[ 'class' ]    = $attributes[ 'class' ] . ' disabled';
         }
         
-        return HTML::createTag(
-            'a', $attributes, $this->buttonContent ? $this->buttonContent : $this->Title()
-        );
+        return HTML::createTag( 'a', $attributes, $this->buttonContent ? $this->buttonContent : $this->Title() );
     }
     
 }

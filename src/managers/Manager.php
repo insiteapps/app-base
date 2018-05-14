@@ -80,15 +80,16 @@ class Manager
         return Security::getCurrentUser();
     }
     
-   
+    
     /**
      * @param $pure_string
      * @param $encryption_key
      *
      * @return string
      */
-    public static   function encrypt($pure_string, $encryption_key) {
-        return openssl_encrypt($pure_string,"AES-128-ECB",$encryption_key);
+    public static function encrypt( $pure_string, $encryption_key )
+    {
+        return openssl_encrypt( $pure_string, "AES-128-ECB", $encryption_key );
     }
     
     /**
@@ -97,7 +98,8 @@ class Manager
      *
      * @return string
      */
-    public static  function decrypt($encrypted_string, $encryption_key) {
-        return openssl_decrypt($encrypted_string,"AES-128-ECB",$encryption_key);
+    public static function decrypt( $encrypted_string, $encryption_key )
+    {
+        return openssl_decrypt( $encrypted_string, "AES-128-ECB", $encryption_key );
     }
 }

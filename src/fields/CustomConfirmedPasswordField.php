@@ -86,37 +86,27 @@ class CustomConfirmedPasswordField extends FormField
     public $children;
     
     /**
-     * @param string $name
-     * @param string $title
-     * @param mixed $value
-     * @param Form $form
+     * @param string  $name
+     * @param string  $title
+     * @param mixed   $value
+     * @param Form    $form
      * @param boolean $showOnClick
-     * @param string $titleConfirmField Alternate title (not localizeable)
+     * @param string  $titleConfirmField Alternate title (not localizeable)
      */
-    public function __construct($name, $title = null, $value = "", $form = null, $showOnClick = false,
-                                $titleConfirmField = null)
+    public function __construct( $name, $title = null, $value = "", $form = null, $showOnClick = false, $titleConfirmField = null )
     {
         
         // naming with underscores to prevent values from actually being saved somewhere
-        $this->children = new FieldList(
-            new ConfirmedPasswordField(
-                "{$name}[_Password]",
-                (isset($title)) ? $title : _t(__CLASS__.'.PASSWORD', 'Password')
-            ),
-            new ConfirmedPasswordField(
-                "{$name}[_ConfirmPassword]",
-                (isset($titleConfirmField)) ? $titleConfirmField : _t(__CLASS__.'.CONFIRMPASSWORD', 'Confirm Password')
-            )
-        );
+        $this->children = new FieldList( new ConfirmedPasswordField( "{$name}[_Password]", ( isset( $title ) ) ? $title : _t( __CLASS__ . '.PASSWORD', 'Password' ) ), new ConfirmedPasswordField( "{$name}[_ConfirmPassword]", ( isset( $titleConfirmField ) ) ? $titleConfirmField : _t( __CLASS__ . '.CONFIRMPASSWORD', 'Confirm Password' ) ) );
         
         // has to be called in constructor because Field() isn't triggered upon saving the instance
-        if ($showOnClick) {
-            $this->children->push(new HiddenField("{$name}[_PasswordFieldVisible]"));
+        if ( $showOnClick ) {
+            $this->children->push( new HiddenField( "{$name}[_PasswordFieldVisible]" ) );
         }
         
         // disable auto complete
         foreach ( $this->children as $child ) {
-            $child->setAttribute('autocomplete', 'off');
+            $child->setAttribute( 'autocomplete', 'off' );
         }
         
         $this->showOnClick = $showOnClick;
@@ -124,8 +114,8 @@ class CustomConfirmedPasswordField extends FormField
         // we have labels for the subfields
         $title = false;
         
-        parent::__construct($name, $title, null, $form);
-        $this->setValue($value);
+        parent::__construct( $name, $title, null, $form );
+        $this->setValue( $value );
     }
     
     /**
@@ -133,24 +123,21 @@ class CustomConfirmedPasswordField extends FormField
      *
      * @return string
      */
-    public function Field($properties = array())
+    public function Field( $properties = array() )
     {
-        Requirements::javascript(FRAMEWORK_DIR . '/thirdparty/jquery/jquery.js');
-        Requirements::javascript(FRAMEWORK_DIR . '/javascript/ConfirmedPasswordField.js');
-        Requirements::css(FRAMEWORK_DIR . '/css/ConfirmedPasswordField.css');
+        Requirements::javascript( FRAMEWORK_DIR . '/thirdparty/jquery/jquery.js' );
+        Requirements::javascript( FRAMEWORK_DIR . '/javascript/ConfirmedPasswordField.js' );
+        Requirements::css( FRAMEWORK_DIR . '/css/ConfirmedPasswordField.css' );
         
         $content = '';
         
-        if ($this->showOnClick) {
-            if ($this->showOnClickTitle) {
+        if ( $this->showOnClick ) {
+            if ( $this->showOnClickTitle ) {
                 $title = $this->showOnClickTitle;
             } else {
-                $title = _t(
-                    __CLASS__.'.SHOWONCLICKTITLE',
-                    'Change Password',
+                $title = _t( __CLASS__ . '.SHOWONCLICKTITLE', 'Change Password',
                     
-                    'Label of the link which triggers display of the "change password" formfields'
-                );
+                    'Label of the link which triggers display of the "change password" formfields' );
             }
             
             $content .= "<div class=\"showOnClick\">\n";
@@ -159,19 +146,19 @@ class CustomConfirmedPasswordField extends FormField
         }
         
         foreach ( $this->children as $field ) {
-            $field->setDisabled($this->isDisabled());
-            $field->setReadonly($this->isReadonly());
+            $field->setDisabled( $this->isDisabled() );
+            $field->setReadonly( $this->isReadonly() );
             
-            if (count($this->attributes)) {
+            if ( count( $this->attributes ) ) {
                 foreach ( $this->attributes as $name => $value ) {
-                    $field->setAttribute($name, $value);
+                    $field->setAttribute( $name, $value );
                 }
             }
             
             $content .= $field->FieldHolder();
         }
         
-        if ($this->showOnClick) {
+        if ( $this->showOnClick ) {
             $content .= "</div>\n";
             $content .= "</div>\n";
         }
@@ -189,9 +176,9 @@ class CustomConfirmedPasswordField extends FormField
      *
      * @return ConfirmedPasswordField
      */
-    public function setCanBeEmpty($value)
+    public function setCanBeEmpty( $value )
     {
-        $this->canBeEmpty = (bool)$value;
+        $this->canBeEmpty = (bool) $value;
         
         return $this;
     }
@@ -205,7 +192,7 @@ class CustomConfirmedPasswordField extends FormField
      *
      * @return ConfirmedPasswordField
      */
-    public function setShowOnClickTitle($title)
+    public function setShowOnClickTitle( $title )
     {
         $this->showOnClickTitle = $title;
         
@@ -225,10 +212,10 @@ class CustomConfirmedPasswordField extends FormField
      *
      * @return ConfirmedPasswordField
      */
-    public function setRightTitle($title)
+    public function setRightTitle( $title )
     {
         foreach ( $this->children as $field ) {
-            $field->setRightTitle($title);
+            $field->setRightTitle( $title );
         }
         
         return $this;
@@ -240,14 +227,14 @@ class CustomConfirmedPasswordField extends FormField
      *
      * @return ConfirmedPasswordField
      */
-    public function setChildrenTitles($titles)
+    public function setChildrenTitles( $titles )
     {
-        if (is_array($titles) && count($titles) == 2) {
+        if ( is_array( $titles ) && count( $titles ) == 2 ) {
             foreach ( $this->children as $field ) {
-                if (isset($titles[0])) {
-                    $field->setTitle($titles[0]);
+                if ( isset( $titles[ 0 ] ) ) {
+                    $field->setTitle( $titles[ 0 ] );
                     
-                    array_shift($titles);
+                    array_shift( $titles );
                 }
             }
         }
@@ -263,35 +250,35 @@ class CustomConfirmedPasswordField extends FormField
      *
      * @return ConfirmedPasswordField
      */
-    public function setValue($value, $data = null)
+    public function setValue( $value, $data = null )
     {
         // If $data is a DataObject, don't use the value, since it's a hashed value
-        if ($data && $data instanceof DataObject) $value = '';
+        if ( $data && $data instanceof DataObject ) {
+            $value = '';
+        }
         
         //store this for later
         $oldValue = $this->value;
         
-        if (is_array($value)) {
-            $this->value = $value['_Password'];
-            $this->confirmValue = $value['_ConfirmPassword'];
+        if ( is_array( $value ) ) {
+            $this->value        = $value[ '_Password' ];
+            $this->confirmValue = $value[ '_ConfirmPassword' ];
             
-            if ($this->showOnClick && isset($value['_PasswordFieldVisible'])) {
-                $this->children->fieldByName($this->getName() . '[_PasswordFieldVisible]')
-                    ->setValue($value['_PasswordFieldVisible']);
+            if ( $this->showOnClick && isset( $value[ '_PasswordFieldVisible' ] ) ) {
+                $this->children->fieldByName( $this->getName() . '[_PasswordFieldVisible]' )
+                               ->setValue( $value[ '_PasswordFieldVisible' ] );
             }
         } else {
-            if ($value || (!$value && $this->canBeEmpty)) {
+            if ( $value || ( !$value && $this->canBeEmpty ) ) {
                 $this->value = $value;
             }
         }
         
         //looking up field by name is expensive, so lets check it needs to change
-        if ($oldValue != $this->value) {
-            $this->children->fieldByName($this->getName() . '[_Password]')
-                ->setValue($this->value);
+        if ( $oldValue != $this->value ) {
+            $this->children->fieldByName( $this->getName() . '[_Password]' )->setValue( $this->value );
             
-            $this->children->fieldByName($this->getName() . '[_ConfirmPassword]')
-                ->setValue($this->value);
+            $this->children->fieldByName( $this->getName() . '[_ConfirmPassword]' )->setValue( $this->value );
         }
         
         return $this;
@@ -302,14 +289,13 @@ class CustomConfirmedPasswordField extends FormField
      *
      * @param string $name new name to give to the field.
      */
-    public function setName($name)
+    public function setName( $name )
     {
-        $this->children->fieldByName($this->getName() . '[_Password]')
-            ->setName($name . '[_Password]');
-        $this->children->fieldByName($this->getName() . '[_ConfirmPassword]')
-            ->setName($name . '[_ConfirmPassword]');
+        $this->children->fieldByName( $this->getName() . '[_Password]' )->setName( $name . '[_Password]' );
+        $this->children->fieldByName( $this->getName() . '[_ConfirmPassword]' )
+                       ->setName( $name . '[_ConfirmPassword]' );
         
-        return parent::setName($name);
+        return parent::setName( $name );
     }
     
     /**
@@ -320,9 +306,9 @@ class CustomConfirmedPasswordField extends FormField
      */
     public function isSaveable()
     {
-        $isVisible = $this->children->fieldByName($this->getName() . '[_PasswordFieldVisible]');
+        $isVisible = $this->children->fieldByName( $this->getName() . '[_PasswordFieldVisible]' );
         
-        return (!$this->showOnClick || ($this->showOnClick && $isVisible && $isVisible->Value()));
+        return ( !$this->showOnClick || ( $this->showOnClick && $isVisible && $isVisible->Value() ) );
     }
     
     /**
@@ -330,92 +316,62 @@ class CustomConfirmedPasswordField extends FormField
      *
      * @return boolean
      */
-    public function validate($validator)
+    public function validate( $validator )
     {
         $name = $this->name;
         
         // if field isn't visible, don't validate
-        if (!$this->isSaveable()) {
+        if ( !$this->isSaveable() ) {
             return true;
         }
         
-        $passwordField = $this->children->fieldByName($name . '[_Password]');
-        $passwordConfirmField = $this->children->fieldByName($name . '[_ConfirmPassword]');
-        $passwordField->setValue($this->value);
-        $passwordConfirmField->setValue($this->confirmValue);
+        $passwordField        = $this->children->fieldByName( $name . '[_Password]' );
+        $passwordConfirmField = $this->children->fieldByName( $name . '[_ConfirmPassword]' );
+        $passwordField->setValue( $this->value );
+        $passwordConfirmField->setValue( $this->confirmValue );
         
         $value = $passwordField->Value();
         
         // both password-fields should be the same
-        if ($value != $passwordConfirmField->Value()) {
-            $validator->validationError(
-                $name,
-                _t(__CLASS__.'.VALIDATIONPASSWORDSDONTMATCH', "Passwords don't match"),
-                "validation",
-                false
-            );
+        if ( $value != $passwordConfirmField->Value() ) {
+            $validator->validationError( $name, _t( __CLASS__ . '.VALIDATIONPASSWORDSDONTMATCH', "Passwords don't match" ), "validation", false );
             
             return false;
         }
         
-        if (!$this->canBeEmpty) {
+        if ( !$this->canBeEmpty ) {
             // both password-fields shouldn't be empty
-            if (!$value || !$passwordConfirmField->Value()) {
-                $validator->validationError(
-                    $name,
-                    _t(__CLASS__.'.VALIDATIONPASSWORDSNOTEMPTY', "Passwords can't be empty"),
-                    "validation",
-                    false
-                );
+            if ( !$value || !$passwordConfirmField->Value() ) {
+                $validator->validationError( $name, _t( __CLASS__ . '.VALIDATIONPASSWORDSNOTEMPTY', "Passwords can't be empty" ), "validation", false );
                 
                 return false;
             }
         }
         
         // lengths
-        if (($this->minLength || $this->maxLength)) {
-            if ($this->minLength && $this->maxLength) {
-                $limit = "{{$this->minLength},{$this->maxLength}}";
-                $errorMsg = _t(
-                    __CLASS__.'.BETWEEN',
-                    'Passwords must be {min} to {max} characters long.',
-                    array('min' => $this->minLength, 'max' => $this->maxLength)
-                );
-            } elseif ($this->minLength) {
-                $limit = "{{$this->minLength}}.*";
-                $errorMsg = _t(
-                    __CLASS__.'.ATLEAST',
-                    'Passwords must be at least {min} characters long.',
-                    array('min' => $this->minLength)
-                );
-            } elseif ($this->maxLength) {
-                $limit = "{0,{$this->maxLength}}";
-                $errorMsg = _t(
-                    __CLASS__.'.MAXIMUM',
-                    'Passwords must be at most {max} characters long.',
-                    array('max' => $this->maxLength)
-                );
+        if ( ( $this->minLength || $this->maxLength ) ) {
+            if ( $this->minLength && $this->maxLength ) {
+                $limit    = "{{$this->minLength},{$this->maxLength}}";
+                $errorMsg = _t( __CLASS__ . '.BETWEEN', 'Passwords must be {min} to {max} characters long.', array(
+                        'min' => $this->minLength,
+                        'max' => $this->maxLength,
+                    ) );
+            } elseif ( $this->minLength ) {
+                $limit    = "{{$this->minLength}}.*";
+                $errorMsg = _t( __CLASS__ . '.ATLEAST', 'Passwords must be at least {min} characters long.', array( 'min' => $this->minLength ) );
+            } elseif ( $this->maxLength ) {
+                $limit    = "{0,{$this->maxLength}}";
+                $errorMsg = _t( __CLASS__ . '.MAXIMUM', 'Passwords must be at most {max} characters long.', array( 'max' => $this->maxLength ) );
             }
             $limitRegex = '/^.' . $limit . '$/';
-            if (!empty($value) && !preg_match($limitRegex, $value)) {
-                $validator->validationError(
-                    $name,
-                    $errorMsg,
-                    "validation",
-                    false
-                );
+            if ( !empty( $value ) && !preg_match( $limitRegex, $value ) ) {
+                $validator->validationError( $name, $errorMsg, "validation", false );
             }
         }
         
-        if ($this->requireStrongPassword) {
-            if (!preg_match('/^(([a-zA-Z]+\d+)|(\d+[a-zA-Z]+))[a-zA-Z0-9]*$/', $value)) {
-                $validator->validationError(
-                    $name,
-                    _t(__CLASS__.'.VALIDATIONSTRONGPASSWORD',
-                        "Passwords must have at least one digit and one alphanumeric character"),
-                    "validation",
-                    false
-                );
+        if ( $this->requireStrongPassword ) {
+            if ( !preg_match( '/^(([a-zA-Z]+\d+)|(\d+[a-zA-Z]+))[a-zA-Z0-9]*$/', $value ) ) {
+                $validator->validationError( $name, _t( __CLASS__ . '.VALIDATIONSTRONGPASSWORD', "Passwords must have at least one digit and one alphanumeric character" ), "validation", false );
                 
                 return false;
             }
@@ -431,14 +387,14 @@ class CustomConfirmedPasswordField extends FormField
      *
      * @return boolean
      */
-    public function saveInto(DataObjectInterface $record)
+    public function saveInto( DataObjectInterface $record )
     {
-        if (!$this->isSaveable()) {
+        if ( !$this->isSaveable() ) {
             return false;
         }
         
-        if (!($this->canBeEmpty && !$this->value)) {
-            parent::saveInto($record);
+        if ( !( $this->canBeEmpty && !$this->value ) ) {
+            parent::saveInto( $record );
         }
     }
     
@@ -449,9 +405,9 @@ class CustomConfirmedPasswordField extends FormField
      */
     public function performReadonlyTransformation()
     {
-        $field = $this->castedCopy('ReadonlyField')
-            ->setTitle($this->title ? $this->title : _t(__CLASS__.'.PASSWORD','Password'))
-            ->setValue('*****');
+        $field = $this->castedCopy( 'ReadonlyField' )
+                      ->setTitle( $this->title ? $this->title : _t( __CLASS__ . '.PASSWORD', 'Password' ) )
+                      ->setValue( '*****' );
         
         return $field;
     }
@@ -461,13 +417,13 @@ class CustomConfirmedPasswordField extends FormField
      *
      * @return $this
      */
-    public function setChildrenPlaceholders($titles)
+    public function setChildrenPlaceholders( $titles )
     {
-        if (is_array($titles) && count($titles) == 2) {
+        if ( is_array( $titles ) && count( $titles ) == 2 ) {
             foreach ( $this->children as $field ) {
-                if (isset($titles[0])) {
-                    $field->setAttribute('placeholder', $titles[0]);
-                    array_shift($titles);
+                if ( isset( $titles[ 0 ] ) ) {
+                    $field->setAttribute( 'placeholder', $titles[ 0 ] );
+                    array_shift( $titles );
                 }
             }
         }

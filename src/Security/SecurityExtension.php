@@ -16,6 +16,7 @@ class SecurityExtension extends DataExtension
     
     public function MembershipLoginForm()
     {
-        return Injector::inst()->get(MembershipAuthenticator::class)->getLoginHandler($this->owner->Link())->MembershipLoginForm();
+        return Injector::inst()->get( MembershipAuthenticator::class )->getLoginHandler( $this->owner->Link() )
+                       ->MembershipLoginForm();
     }
 }

@@ -20,20 +20,29 @@ use SilverStripe\Control\HTTPResponse_Exception;
 class CalendarManagerToolkit extends Manager
 {
     
-    public static function breakdown($ts = null)
+    public static function breakdown( $ts = null )
     {
         // default to now
-        if ($ts === null) $ts = self::now();
+        if ( $ts === null ) {
+            $ts = self::now();
+        }
         
         // gather individual variables
-        $H = date('H', $ts); // hour
-        $i = date('i', $ts); // minute
-        $s = date('s', $ts); // second
-        $m = date('m', $ts); // month
-        $d = date('d', $ts); // day
-        $Y = date('Y', $ts); // year
+        $H = date( 'H', $ts ); // hour
+        $i = date( 'i', $ts ); // minute
+        $s = date( 's', $ts ); // second
+        $m = date( 'm', $ts ); // month
+        $d = date( 'd', $ts ); // day
+        $Y = date( 'Y', $ts ); // year
         
-        return array($H, $i, $s, $m, $d, $Y);
+        return array(
+            $H,
+            $i,
+            $s,
+            $m,
+            $d,
+            $Y,
+        );
     }
     
     /**
@@ -53,18 +62,24 @@ class CalendarManagerToolkit extends Manager
      *
      * @param    mixed    value to use for timestamp retrieval
      */
-    public static function getTS($value = null)
+    public static function getTS( $value = null )
     {
-        if ($value === null) {
+        if ( $value === null ) {
             return self::now();
-        } else if ($value instanceof sfDate) {
-            return $value->get();
-        } else if (!is_numeric($value)) {
-            return strtotime($value);
-        } else if (is_numeric($value)) {
-            return $value;
+        } else {
+            if ( $value instanceof sfDate ) {
+                return $value->get();
+            } else {
+                if ( !is_numeric( $value ) ) {
+                    return strtotime( $value );
+                } else {
+                    if ( is_numeric( $value ) ) {
+                        return $value;
+                    }
+                }
+            }
         }
         
-        throw new HTTPResponse_Exception(sprintf('A timestamp could not be retrieved from the value: %s', $value));
+        throw new HTTPResponse_Exception( sprintf( 'A timestamp could not be retrieved from the value: %s', $value ) );
     }
 }

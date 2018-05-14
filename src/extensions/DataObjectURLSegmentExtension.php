@@ -110,7 +110,7 @@ class DataObjectURLSegmentExtension extends DataExtension
             }
         }
         
-        if(!$this->owner->URLSegment){
+        if ( !$this->owner->URLSegment ) {
             $this->owner->URLSegment = $this->generateUniqueURLSegment( $this->owner->Title );
         }
         

@@ -24,42 +24,69 @@ class CalendarTimeManager extends Manager
      * Units of time
      */
     const SECOND = 0;
+    
     const MINUTE = 1;
+    
     const HOUR = 2;
+    
     const DAY = 3;
+    
     const WEEK = 4;
+    
     const MONTH = 5;
+    
     const QUARTER = 6;
+    
     const YEAR = 7;
+    
     const DECADE = 8;
+    
     const CENTURY = 9;
+    
     const MILLENIUM = 10;
     
     /**
      * Days of the week
      */
     const SUNDAY = 0;
+    
     const MONDAY = 1;
+    
     const TUESDAY = 2;
+    
     const WEDNESDAY = 3;
+    
     const THURSDAY = 4;
+    
     const FRIDAY = 5;
+    
     const SATURDAY = 6;
     
     /**
      * Months of the year
      */
     const JANUARY = 1;
+    
     const FEBRUARY = 2;
+    
     const MARCH = 3;
+    
     const APRIL = 4;
+    
     const MAY = 5;
+    
     const JUNE = 6;
+    
     const JULY = 7;
+    
     const AUGUST = 8;
+    
     const SEPTEMBER = 9;
+    
     const OCTOBER = 10;
+    
     const NOVEMBER = 11;
+    
     const DECEMBER = 12;
     
     /**
@@ -87,40 +114,42 @@ class CalendarTimeManager extends Manager
      *
      * @throws    sfDateTimeException
      */
-    public static function add($ts = null, $num = 1, $unit = self::DAY)
+    public static function add( $ts = null, $num = 1, $unit = self::DAY )
     {
         // default to now
-        if ($ts === null) $ts = CalendarManagerToolkit::now();
+        if ( $ts === null ) {
+            $ts = CalendarManagerToolkit::now();
+        }
         
         // gather individual variables for readability and maintainability
-        list($H, $i, $s, $m, $d, $Y) = CalendarManagerToolkit::breakdown($ts);
+        list( $H, $i, $s, $m, $d, $Y ) = CalendarManagerToolkit::breakdown( $ts );
         
         // determine which unit of time to add by
         switch ( $unit ) {
             case CalendarTimeManager::SECOND:
-                return mktime($H, $i, $s + $num, $m, $d, $Y);
+                return mktime( $H, $i, $s + $num, $m, $d, $Y );
             case CalendarTimeManager::MINUTE:
-                return mktime($H, $i + $num, $s, $m, $d, $Y);
+                return mktime( $H, $i + $num, $s, $m, $d, $Y );
             case CalendarTimeManager::HOUR:
-                return mktime($H + $num, $i, $s, $m, $d, $Y);
+                return mktime( $H + $num, $i, $s, $m, $d, $Y );
             case CalendarTimeManager::DAY:
-                return mktime($H, $i, $s, $m, $d + $num, $Y);
+                return mktime( $H, $i, $s, $m, $d + $num, $Y );
             case CalendarTimeManager::WEEK:
-                return mktime($H, $i, $s, $m, $d + (7 * $num), $Y);
+                return mktime( $H, $i, $s, $m, $d + ( 7 * $num ), $Y );
             case CalendarTimeManager::MONTH:
-                return mktime($H, $i, $s, $m + $num, $d, $Y);
+                return mktime( $H, $i, $s, $m + $num, $d, $Y );
             case CalendarTimeManager::QUARTER:
-                return mktime($H, $i, $s, $m + (3 * $num), $d, $Y);
+                return mktime( $H, $i, $s, $m + ( 3 * $num ), $d, $Y );
             case CalendarTimeManager::YEAR:
-                return mktime($H, $i, $s, $m, $d, $Y + $num);
+                return mktime( $H, $i, $s, $m, $d, $Y + $num );
             case CalendarTimeManager::DECADE:
-                return mktime($H, $i, $s, $m, $d, $Y + (10 * $num));
+                return mktime( $H, $i, $s, $m, $d, $Y + ( 10 * $num ) );
             case CalendarTimeManager::CENTURY:
-                return mktime($H, $i, $s, $m, $d, $Y + (100 * $num));
+                return mktime( $H, $i, $s, $m, $d, $Y + ( 100 * $num ) );
             case CalendarTimeManager::MILLENIUM:
-                return mktime($H, $i, $s, $m, $d, $Y + (1000 * $num));
+                return mktime( $H, $i, $s, $m, $d, $Y + ( 1000 * $num ) );
             default:
-                throw new sfDateTimeException(sprintf('The unit of time provided is not valid: %s', $unit));
+                throw new sfDateTimeException( sprintf( 'The unit of time provided is not valid: %s', $unit ) );
         }
     }
     
@@ -149,9 +178,9 @@ class CalendarTimeManager extends Manager
      *
      * @see        add
      */
-    public static function subtract($ts = null, $num = 1, $unit = CalendarTimeManager::DAY)
+    public static function subtract( $ts = null, $num = 1, $unit = CalendarTimeManager::DAY )
     {
-        return CalendarTimeManager::add($ts, $num * -1, $unit);
+        return CalendarTimeManager::add( $ts, $num * -1, $unit );
     }
     
     /**
@@ -161,14 +190,16 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function clearTime($ts = null)
+    public static function clearTime( $ts = null )
     {
         // default to now
-        if ($ts === null) $ts = CalendarManagerToolkit::now();
+        if ( $ts === null ) {
+            $ts = CalendarManagerToolkit::now();
+        }
         
-        list($H, $i, $s, $m, $d, $Y) = CalendarManagerToolkit::breakdown($ts);
+        list( $H, $i, $s, $m, $d, $Y ) = CalendarManagerToolkit::breakdown( $ts );
         
-        return mktime(0, 0, 0, $m, $d, $Y);
+        return mktime( 0, 0, 0, $m, $d, $Y );
     }
     
     /**
@@ -180,14 +211,16 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function clearDate($ts = null)
+    public static function clearDate( $ts = null )
     {
         // default to now
-        if ($ts === null) $ts = CalendarManagerToolkit::now();
+        if ( $ts === null ) {
+            $ts = CalendarManagerToolkit::now();
+        }
         
-        list($H, $i, $s, $m, $d, $Y) = CalendarManagerToolkit::breakdown($ts);
+        list( $H, $i, $s, $m, $d, $Y ) = CalendarManagerToolkit::breakdown( $ts );
         
-        return mktime($H, $i, $s, 0, 0, 0);
+        return mktime( $H, $i, $s, 0, 0, 0 );
     }
     
     /**
@@ -198,11 +231,11 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function clearSecond($ts = null)
+    public static function clearSecond( $ts = null )
     {
-        list($H, $i, $s, $m, $d, $Y) = CalendarManagerToolkit::breakdown($ts);
+        list( $H, $i, $s, $m, $d, $Y ) = CalendarManagerToolkit::breakdown( $ts );
         
-        return mktime($H, $i, 0, $m, $d, $Y);
+        return mktime( $H, $i, 0, $m, $d, $Y );
     }
     
     /**
@@ -213,11 +246,11 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function clearMinute($ts = null)
+    public static function clearMinute( $ts = null )
     {
-        list($H, $i, $s, $m, $d, $Y) = CalendarManagerToolkit::breakdown($ts);
+        list( $H, $i, $s, $m, $d, $Y ) = CalendarManagerToolkit::breakdown( $ts );
         
-        return mktime($H, 0, $s, $m, $d, $Y);
+        return mktime( $H, 0, $s, $m, $d, $Y );
     }
     
     /**
@@ -228,11 +261,11 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function clearHour($ts = null)
+    public static function clearHour( $ts = null )
     {
-        list($H, $i, $s, $m, $d, $Y) = CalendarManagerToolkit::breakdown($ts);
+        list( $H, $i, $s, $m, $d, $Y ) = CalendarManagerToolkit::breakdown( $ts );
         
-        return mktime(0, $i, $s, $m, $d, $Y);
+        return mktime( 0, $i, $s, $m, $d, $Y );
     }
     
     /**
@@ -243,11 +276,11 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function setSecond($ts = null, $second = 0)
+    public static function setSecond( $ts = null, $second = 0 )
     {
-        list($H, $i, $s, $m, $d, $Y) = CalendarManagerToolkit::breakdown($ts);
+        list( $H, $i, $s, $m, $d, $Y ) = CalendarManagerToolkit::breakdown( $ts );
         
-        return mktime($H, $i, $second, $m, $d, $Y);
+        return mktime( $H, $i, $second, $m, $d, $Y );
     }
     
     /**
@@ -258,11 +291,11 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function setMinute($ts = null, $minute = 0)
+    public static function setMinute( $ts = null, $minute = 0 )
     {
-        list($H, $i, $s, $m, $d, $Y) = CalendarManagerToolkit::breakdown($ts);
+        list( $H, $i, $s, $m, $d, $Y ) = CalendarManagerToolkit::breakdown( $ts );
         
-        return mktime($H, $minute, $s, $m, $d, $Y);
+        return mktime( $H, $minute, $s, $m, $d, $Y );
     }
     
     /**
@@ -273,11 +306,11 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function setHour($ts = null, $hour = 0)
+    public static function setHour( $ts = null, $hour = 0 )
     {
-        list($H, $i, $s, $m, $d, $Y) = CalendarManagerToolkit::breakdown($ts);
+        list( $H, $i, $s, $m, $d, $Y ) = CalendarManagerToolkit::breakdown( $ts );
         
-        return mktime($hour, $i, $s, $m, $d, $Y);
+        return mktime( $hour, $i, $s, $m, $d, $Y );
     }
     
     /**
@@ -288,11 +321,11 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function setDay($ts = null, $day = 1)
+    public static function setDay( $ts = null, $day = 1 )
     {
-        list($H, $i, $s, $m, $d, $Y) = CalendarManagerToolkit::breakdown($ts);
+        list( $H, $i, $s, $m, $d, $Y ) = CalendarManagerToolkit::breakdown( $ts );
         
-        return mktime($H, $i, $s, $m, $day, $Y);
+        return mktime( $H, $i, $s, $m, $day, $Y );
     }
     
     /**
@@ -303,11 +336,11 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function setMonth($ts = null, $month = 1)
+    public static function setMonth( $ts = null, $month = 1 )
     {
-        list($H, $i, $s, $m, $d, $Y) = CalendarManagerToolkit::breakdown($ts);
+        list( $H, $i, $s, $m, $d, $Y ) = CalendarManagerToolkit::breakdown( $ts );
         
-        return mktime($H, $i, $s, $month, $d, $Y);
+        return mktime( $H, $i, $s, $month, $d, $Y );
     }
     
     /**
@@ -318,11 +351,11 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function setYear($ts = null, $year = 1970)
+    public static function setYear( $ts = null, $year = 1970 )
     {
-        list($H, $i, $s, $m, $d, $Y) = CalendarManagerToolkit::breakdown($ts);
+        list( $H, $i, $s, $m, $d, $Y ) = CalendarManagerToolkit::breakdown( $ts );
         
-        return mktime($H, $i, $s, $m, $d, $year);
+        return mktime( $H, $i, $s, $m, $d, $year );
     }
     
     /**
@@ -334,9 +367,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function tomorrow($ts = null)
+    public static function tomorrow( $ts = null )
     {
-        return CalendarTimeManager::add($ts);
+        return CalendarTimeManager::add( $ts );
     }
     
     /**
@@ -348,9 +381,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function yesterday($ts = null)
+    public static function yesterday( $ts = null )
     {
-        return CalendarTimeManager::subtract($ts);
+        return CalendarTimeManager::subtract( $ts );
     }
     
     /**
@@ -361,9 +394,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function addSecond($ts = null, $num = 1)
+    public static function addSecond( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::add($ts, $num, CalendarTimeManager::SECOND);
+        return CalendarTimeManager::add( $ts, $num, CalendarTimeManager::SECOND );
     }
     
     /**
@@ -374,9 +407,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function subtractSecond($ts = null, $num = 1)
+    public static function subtractSecond( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::subtract($ts, $num, CalendarTimeManager::SECOND);
+        return CalendarTimeManager::subtract( $ts, $num, CalendarTimeManager::SECOND );
     }
     
     /**
@@ -387,9 +420,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function addMinute($ts = null, $num = 1)
+    public static function addMinute( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::add($ts, $num, CalendarTimeManager::MINUTE);
+        return CalendarTimeManager::add( $ts, $num, CalendarTimeManager::MINUTE );
     }
     
     /**
@@ -400,9 +433,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function subtractMinute($ts = null, $num = 1)
+    public static function subtractMinute( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::subtract($ts, $num, CalendarTimeManager::MINUTE);
+        return CalendarTimeManager::subtract( $ts, $num, CalendarTimeManager::MINUTE );
     }
     
     /**
@@ -413,9 +446,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function addHour($ts = null, $num = 1)
+    public static function addHour( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::add($ts, $num, CalendarTimeManager::HOUR);
+        return CalendarTimeManager::add( $ts, $num, CalendarTimeManager::HOUR );
     }
     
     /**
@@ -426,9 +459,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function subtractHour($ts = null, $num = 1)
+    public static function subtractHour( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::subtract($ts, $num, CalendarTimeManager::HOUR);
+        return CalendarTimeManager::subtract( $ts, $num, CalendarTimeManager::HOUR );
     }
     
     /**
@@ -439,9 +472,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function addDay($ts = null, $num = 1)
+    public static function addDay( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::add($ts, $num, CalendarTimeManager::DAY);
+        return CalendarTimeManager::add( $ts, $num, CalendarTimeManager::DAY );
     }
     
     /**
@@ -452,9 +485,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function subtractDay($ts = null, $num = 1)
+    public static function subtractDay( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::subtract($ts, $num, CalendarTimeManager::DAY);
+        return CalendarTimeManager::subtract( $ts, $num, CalendarTimeManager::DAY );
     }
     
     /**
@@ -465,9 +498,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function addWeek($ts = null, $num = 1)
+    public static function addWeek( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::add($ts, $num, CalendarTimeManager::WEEK);
+        return CalendarTimeManager::add( $ts, $num, CalendarTimeManager::WEEK );
     }
     
     /**
@@ -478,9 +511,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function subtractWeek($ts = null, $num = 1)
+    public static function subtractWeek( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::subtract($ts, $num, CalendarTimeManager::WEEK);
+        return CalendarTimeManager::subtract( $ts, $num, CalendarTimeManager::WEEK );
     }
     
     /**
@@ -491,9 +524,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function addMonth($ts = null, $num = 1)
+    public static function addMonth( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::add($ts, $num, CalendarTimeManager::MONTH);
+        return CalendarTimeManager::add( $ts, $num, CalendarTimeManager::MONTH );
     }
     
     /**
@@ -504,9 +537,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function subtractMonth($ts = null, $num = 1)
+    public static function subtractMonth( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::subtract($ts, $num, CalendarTimeManager::MONTH);
+        return CalendarTimeManager::subtract( $ts, $num, CalendarTimeManager::MONTH );
     }
     
     /**
@@ -517,9 +550,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function addQuarter($ts = null, $num = 1)
+    public static function addQuarter( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::add($ts, $num, CalendarTimeManager::QUARTER);
+        return CalendarTimeManager::add( $ts, $num, CalendarTimeManager::QUARTER );
     }
     
     /**
@@ -530,9 +563,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function subtractQuarter($ts = null, $num = 1)
+    public static function subtractQuarter( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::subtract($ts, $num, CalendarTimeManager::QUARTER);
+        return CalendarTimeManager::subtract( $ts, $num, CalendarTimeManager::QUARTER );
     }
     
     /**
@@ -543,9 +576,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function addYear($ts = null, $num = 1)
+    public static function addYear( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::add($ts, $num, CalendarTimeManager::YEAR);
+        return CalendarTimeManager::add( $ts, $num, CalendarTimeManager::YEAR );
     }
     
     /**
@@ -556,9 +589,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function subtractYear($ts = null, $num = 1)
+    public static function subtractYear( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::subtract($ts, $num, CalendarTimeManager::YEAR);
+        return CalendarTimeManager::subtract( $ts, $num, CalendarTimeManager::YEAR );
     }
     
     /**
@@ -569,9 +602,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function addDecade($ts = null, $num = 1)
+    public static function addDecade( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::add($ts, $num, CalendarTimeManager::DECADE);
+        return CalendarTimeManager::add( $ts, $num, CalendarTimeManager::DECADE );
     }
     
     /**
@@ -582,9 +615,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function subtractDecade($ts = null, $num = 1)
+    public static function subtractDecade( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::subtract($ts, $num, CalendarTimeManager::DECADE);
+        return CalendarTimeManager::subtract( $ts, $num, CalendarTimeManager::DECADE );
     }
     
     /**
@@ -595,9 +628,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function addCentury($ts = null, $num = 1)
+    public static function addCentury( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::add($ts, $num, CalendarTimeManager::CENTURY);
+        return CalendarTimeManager::add( $ts, $num, CalendarTimeManager::CENTURY );
     }
     
     /**
@@ -608,9 +641,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function subtractCentury($ts = null, $num = 1)
+    public static function subtractCentury( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::subtract($ts, $num, CalendarTimeManager::CENTURY);
+        return CalendarTimeManager::subtract( $ts, $num, CalendarTimeManager::CENTURY );
     }
     
     /**
@@ -621,9 +654,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function addMillenium($ts = null, $num = 1)
+    public static function addMillenium( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::add($ts, $num, CalendarTimeManager::MILLENIUM);
+        return CalendarTimeManager::add( $ts, $num, CalendarTimeManager::MILLENIUM );
     }
     
     /**
@@ -634,9 +667,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function subtractMillenium($ts = null, $num = 1)
+    public static function subtractMillenium( $ts = null, $num = 1 )
     {
-        return CalendarTimeManager::subtract($ts, $num, CalendarTimeManager::MILLENIUM);
+        return CalendarTimeManager::subtract( $ts, $num, CalendarTimeManager::MILLENIUM );
     }
     
     /**
@@ -646,12 +679,14 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function firstDayOfWeek($ts = null)
+    public static function firstDayOfWeek( $ts = null )
     {
         // default to now
-        if ($ts === null) $ts = CalendarManagerToolkit::now();
+        if ( $ts === null ) {
+            $ts = CalendarManagerToolkit::now();
+        }
         
-        return CalendarTimeManager::subtractDay($ts, date('w', $ts));
+        return CalendarTimeManager::subtractDay( $ts, date( 'w', $ts ) );
     }
     
     /**
@@ -661,9 +696,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function finalDayOfWeek($ts = null)
+    public static function finalDayOfWeek( $ts = null )
     {
-        return CalendarTimeManager::subtractDay(CalendarTimeManager::firstDayOfWeek(CalendarTimeManager::addWeek($ts)));
+        return CalendarTimeManager::subtractDay( CalendarTimeManager::firstDayOfWeek( CalendarTimeManager::addWeek( $ts ) ) );
     }
     
     /**
@@ -673,12 +708,14 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function firstDayOfMonth($ts = null)
+    public static function firstDayOfMonth( $ts = null )
     {
         // default to now
-        if ($ts === null) $ts = CalendarManagerToolkit::now();
+        if ( $ts === null ) {
+            $ts = CalendarManagerToolkit::now();
+        }
         
-        return CalendarTimeManager::subtractDay($ts, date('d', $ts) - 1);
+        return CalendarTimeManager::subtractDay( $ts, date( 'd', $ts ) - 1 );
     }
     
     /**
@@ -688,9 +725,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function finalDayOfMonth($ts = null)
+    public static function finalDayOfMonth( $ts = null )
     {
-        return CalendarTimeManager::subtractDay(CalendarTimeManager::firstDayOfMonth(CalendarTimeManager::addMonth($ts)));
+        return CalendarTimeManager::subtractDay( CalendarTimeManager::firstDayOfMonth( CalendarTimeManager::addMonth( $ts ) ) );
     }
     
     /**
@@ -705,16 +742,18 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function firstDayOfQuarter($ts = null)
+    public static function firstDayOfQuarter( $ts = null )
     {
         // default to now
-        if ($ts === null) $ts = CalendarManagerToolkit::now();
+        if ( $ts === null ) {
+            $ts = CalendarManagerToolkit::now();
+        }
         
         // variables for computation
-        $month = date('m', $ts);
-        $quarter = ceil($month / 3) - 1; // zero based quarter
+        $month   = date( 'm', $ts );
+        $quarter = ceil( $month / 3 ) - 1; // zero based quarter
         
-        return CalendarTimeManager::subtractMonth(CalendarTimeManager::firstDayOfMonth($ts), $month - ($quarter * 3) - 1);
+        return CalendarTimeManager::subtractMonth( CalendarTimeManager::firstDayOfMonth( $ts ), $month - ( $quarter * 3 ) - 1 );
     }
     
     /**
@@ -724,9 +763,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function finalDayOfQuarter($ts = null)
+    public static function finalDayOfQuarter( $ts = null )
     {
-        return CalendarTimeManager::subtractDay(CalendarTimeManager::firstDayOfQuarter(CalendarTimeManager::addQuarter($ts)));
+        return CalendarTimeManager::subtractDay( CalendarTimeManager::firstDayOfQuarter( CalendarTimeManager::addQuarter( $ts ) ) );
     }
     
     /**
@@ -736,12 +775,14 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function firstDayOfYear($ts = null)
+    public static function firstDayOfYear( $ts = null )
     {
         // default to now
-        if ($ts === null) $ts = CalendarManagerToolkit::now();
+        if ( $ts === null ) {
+            $ts = CalendarManagerToolkit::now();
+        }
         
-        return CalendarTimeManager::subtractMonth(CalendarTimeManager::firstDayOfMonth($ts), date('m', $ts) - 1);
+        return CalendarTimeManager::subtractMonth( CalendarTimeManager::firstDayOfMonth( $ts ), date( 'm', $ts ) - 1 );
     }
     
     /**
@@ -751,9 +792,9 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function finalDayOfYear($ts = null)
+    public static function finalDayOfYear( $ts = null )
     {
-        return CalendarTimeManager::subtractDay(CalendarTimeManager::firstDayOfYear(CalendarTimeManager::addYear($ts)));
+        return CalendarTimeManager::subtractDay( CalendarTimeManager::firstDayOfYear( CalendarTimeManager::addYear( $ts ) ) );
     }
     
     /**
@@ -764,19 +805,21 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function nextDay($ts = null, $day = CalendarTimeManager::SUNDAY)
+    public static function nextDay( $ts = null, $day = CalendarTimeManager::SUNDAY )
     {
         // default to now
-        if ($ts === null) $ts = CalendarManagerToolkit::now();
+        if ( $ts === null ) {
+            $ts = CalendarManagerToolkit::now();
+        }
         
         // get offsets from sunday
-        $offset1 = date('w', $ts);
+        $offset1 = date( 'w', $ts );
         $offset2 = $day;
         
         // adjust if date wraps into next week
         $offset2 += $offset2 > $offset1 ? 0 : 7;
         
-        return CalendarTimeManager::addDay($ts, $offset2 - $offset1);
+        return CalendarTimeManager::addDay( $ts, $offset2 - $offset1 );
     }
     
     /**
@@ -787,19 +830,21 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function previousDay($ts = null, $day = CalendarTimeManager::SUNDAY)
+    public static function previousDay( $ts = null, $day = CalendarTimeManager::SUNDAY )
     {
         // default to now
-        if ($ts === null) $ts = CalendarManagerToolkit::now();
+        if ( $ts === null ) {
+            $ts = CalendarManagerToolkit::now();
+        }
         
         // get offsets from sunday
-        $offset1 = date('w', $ts);
+        $offset1 = date( 'w', $ts );
         $offset2 = $day;
         
         // adjust if date wraps into last week
         $offset1 += $offset1 > $offset2 ? 0 : 7;
         
-        return CalendarTimeManager::subtractDay($ts, $offset1 - $offset2);
+        return CalendarTimeManager::subtractDay( $ts, $offset1 - $offset2 );
     }
     
     /**
@@ -810,19 +855,21 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function nextMonth($ts = null, $month = CalendarTimeManager::JANUARY)
+    public static function nextMonth( $ts = null, $month = CalendarTimeManager::JANUARY )
     {
         // default to now
-        if ($ts === null) $ts = CalendarManagerToolkit::now();
+        if ( $ts === null ) {
+            $ts = CalendarManagerToolkit::now();
+        }
         
         // get offsets from january
-        $offset1 = date('m', $ts);
+        $offset1 = date( 'm', $ts );
         $offset2 = $month;
         
         // adjust if date wraps into next year
         $offset2 += $offset2 > $offset1 ? 0 : 12;
         
-        return CalendarTimeManager::addMonth($ts, $offset2 - $offset1);
+        return CalendarTimeManager::addMonth( $ts, $offset2 - $offset1 );
     }
     
     /**
@@ -833,18 +880,20 @@ class CalendarTimeManager extends Manager
      *
      * @return    timestamp
      */
-    public static function previousMonth($ts = null, $month = CalendarTimeManager::JANUARY)
+    public static function previousMonth( $ts = null, $month = CalendarTimeManager::JANUARY )
     {
         // default to now
-        if ($ts === null) $ts = CalendarManagerToolkit::now();
+        if ( $ts === null ) {
+            $ts = CalendarManagerToolkit::now();
+        }
         
         // get offsets from january
-        $offset1 = date('m', $ts);
+        $offset1 = date( 'm', $ts );
         $offset2 = $month;
         
         // adjust if date wraps into last year
         $offset1 += $offset1 > $offset2 ? 0 : 12;
         
-        return CalendarTimeManager::subtractMonth($ts, $offset1 - $offset2);
+        return CalendarTimeManager::subtractMonth( $ts, $offset1 - $offset2 );
     }
 }
