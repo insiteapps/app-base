@@ -83,23 +83,21 @@ class Manager
     
     /**
      * @param $pure_string
-     * @param $encryption_key
      *
      * @return string
      */
-    public static function encrypt( $pure_string, $encryption_key )
+    public static function encrypt( $pure_string )
     {
-        return openssl_encrypt( $pure_string, "AES-128-ECB", $encryption_key );
+        return openssl_encrypt( $pure_string, "AES-128-ECB", BASE_ENCODE_KEY );
     }
     
     /**
      * @param $encrypted_string
-     * @param $encryption_key
      *
      * @return string
      */
-    public static function decrypt( $encrypted_string, $encryption_key )
+    public static function decrypt( $encrypted_string )
     {
-        return openssl_decrypt( $encrypted_string, "AES-128-ECB", $encryption_key );
+        return openssl_decrypt( $encrypted_string, "AES-128-ECB", BASE_ENCODE_KEY );
     }
 }
