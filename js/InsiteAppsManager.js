@@ -69,7 +69,7 @@ var InsiteAppsManager = function () {
 
     return {
         init: function () {
-          
+
 
             //$.proxy(self.init, self);
             // self.browserSize();
@@ -78,7 +78,26 @@ var InsiteAppsManager = function () {
         getParameterByName: function (name) {
             var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
             return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+        }, wordLimiting: function (obj, limit, cnt) {
+
+            var txt = $(obj).val();
+            var len = txt.length;
+
+            // check if the current length is over the limit
+            if (len > limit) {
+                $(obj).val(txt.substr(0, limit));
+                $(cnt).html(len - 1);
+            }
+            else {
+                $(cnt).html(len);
+            }
+
+            // check if user has less than 20 chars left
+            if (limit - len <= 20) {
+                $(cnt).addClass("warning");
+            }
         }
+
     }
 
 }();
@@ -120,9 +139,9 @@ InsiteAppsManager.platformDetect = function () {
     function getIOSVersion(ua) {
         ua = ua || navigator.userAgent;
         return parseFloat(
-                ('' + (/CPU.*OS ([0-9_]{1,5})|(CPU like).*AppleWebKit.*Mobile/i.exec(ua) || [0, ''])[1])
-                    .replace('undefined', '3_2').replace('_', '.').replace('_', '')
-            ) || false;
+            ('' + (/CPU.*OS ([0-9_]{1,5})|(CPU like).*AppleWebKit.*Mobile/i.exec(ua) || [0, ''])[1])
+                .replace('undefined', '3_2').replace('_', '.').replace('_', '')
+        ) || false;
     }
 
     function getAndroidVersion(ua) {
@@ -185,6 +204,7 @@ InsiteAppsManager.browserSupport = function () {
 
 
 }
+
 function getSupportedTransform() {
     var prefixes = ['transform', 'WebkitTransform', 'MozTransform', 'OTransform', 'msTransform'];
     for (var i = 0; i < prefixes.length; i++) {

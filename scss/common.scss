@@ -1,5 +1,7 @@
 @import "buttons";
 
+$red: #a94442;
+
 .AjaxLoading {
   display: none;
   position: absolute;
@@ -45,78 +47,6 @@
   }
 }
 
-@media (max-width: 767px) {
-  // mobile
-  html {
-
-    * h1 {
-      font-size: 2rem !important;
-      line-height: 2.3rem !important;
-    }
-
-    * h2 {
-      font-size: 1.625rem !important;
-      line-height: 1.825rem !important;
-    }
-
-    * h3 {
-      font-size: 1.325rem !important;
-      line-height: 1.525rem !important;
-    }
-
-    * h4 {
-      font-size: 1.125rem !important;
-      line-height: 1.325rem !important;
-    }
-
-    * h5 {
-      font-size: 1.025rem !important;
-      line-height: 1.125rem !important;
-    }
-
-    * h6 {
-      font-size: 1rem !important;
-      line-height: 1.025rem !important;
-    }
-  }
-}
-
-@media (max-width: 992px) and (min-width: 767px) {
-  //tablet
-  html {
-
-    * h1 {
-      font-size: 2.8rem !important;
-      line-height: 2.95rem !important;
-    }
-
-    * h2 {
-      font-size: 1.825rem !important;
-      line-height: 2.025rem !important;
-    }
-
-    * h3 {
-      font-size: 1.525rem !important;
-      line-height: 1.725rem !important;
-    }
-
-    * h4 {
-      font-size: 1.125rem !important;
-      line-height: 1.325rem !important;
-    }
-
-    * h5 {
-      font-size: 1.025rem !important;
-      line-height: 1.125rem !important;
-    }
-
-    * h6 {
-      font-size: 1rem !important;
-      line-height: 1.075rem !important;
-    }
-  }
-}
-
 .center-center {
   position: absolute;
   top: 50%;
@@ -124,3 +54,62 @@
   transform: translate(-50%, -50%);
 }
 
+
+label.required {
+  color: $red;
+}
+
+.chzn-container.chzn-container-single.needsfilled a.chzn-single,
+.select-1 .chzn-container-single.needsfilled a.chzn-single,
+.needsfilled {
+  color: $red !important;
+  font-weight: bold !important;
+}
+
+.hasRequired {
+  label {
+    i {
+      color: $red;
+      font-size: 10px;
+    }
+  }
+}
+
+form {
+  span.description {
+    font-size: 10px;
+    font-style: italic;
+  }
+}
+
+.message {
+  padding: 5px 15px;
+
+  border: 1px solid transparent;
+  border-radius: 0;
+  display: block;
+  margin: 2px 0 10px;
+
+  &.validation {
+    color: #a94442;
+  }
+  &.required,
+  &.error,
+  &.bad {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+  }
+  &.good {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+  }
+  &.warning,
+  &.info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+  }
+
+}
