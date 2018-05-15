@@ -89,7 +89,7 @@ var InsiteAppsManager = function () {
                 $(cnt).html(len - 1);
             }
             else {
-                $(cnt).html(len);
+                $(cnt).html("<span>" + len + "</span> characters");
             }
 
             // check if user has less than 20 chars left
