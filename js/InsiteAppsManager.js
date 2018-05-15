@@ -94,7 +94,9 @@ var InsiteAppsManager = function () {
 
             // check if user has less than 20 chars left
             if (limit - len <= 20) {
-                $(cnt).addClass("warning");
+                $(cnt).addClass("badge-danger");
+            }else{
+                $(cnt).removeClass("badge-danger");
             }
         }
 
