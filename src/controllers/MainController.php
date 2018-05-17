@@ -32,8 +32,9 @@ class MainController extends Controller
     protected function getPostData()
     {
         $data = filter_input_array( INPUT_POST );
-        if ( count( $data ) ) {
-            return RecordController::cleanREQUEST( $data );
+        if ( $data ) {
+            return $this->processRequestData( $data );
+            
         }
         
         return [];
@@ -47,11 +48,23 @@ class MainController extends Controller
     protected function getRequestData( $query = null )
     {
         
-        
         $data = filter_input_array( INPUT_GET );
         if ( $data ) {
+            return $this->processRequestData( $data );
+            
+        }
+        
+        return [];
+    }
+    
+    
+    protected function processRequestData( $data, $query = null )
+    {
+        
+        
+        if ( $data ) {
             $aData = RecordController::cleanREQUEST( $data );
-            if ( $query ) {
+            if ( $query && isset( $aData[ $query ] ) ) {
                 return $aData[ $query ];
             }
             
@@ -61,6 +74,7 @@ class MainController extends Controller
         
         return [];
     }
+    
     
     public function Member()
     {
