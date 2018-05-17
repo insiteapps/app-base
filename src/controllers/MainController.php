@@ -28,16 +28,15 @@ class MainController extends Controller
         }
     }
     
-    
-    protected function getPostData()
+    /**
+     * @param null $query
+     *
+     * @return array|string
+     */
+    protected function getPostData( $query = null )
     {
         $data = filter_input_array( INPUT_POST );
-        if ( $data ) {
-            return $this->processRequestData( $data );
-            
-        }
-        
-        return [];
+        return $this->processRequestData( $data, $query );
     }
     
     /**
@@ -49,15 +48,15 @@ class MainController extends Controller
     {
         
         $data = filter_input_array( INPUT_GET );
-        if ( $data ) {
-            return $this->processRequestData( $data );
-            
-        }
-        
-        return [];
+        return $this->processRequestData( $data, $query );
     }
     
-    
+    /**
+     * @param      $data
+     * @param null $query
+     *
+     * @return array|string
+     */
     protected function processRequestData( $data, $query = null )
     {
         
