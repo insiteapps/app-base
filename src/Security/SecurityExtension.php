@@ -14,6 +14,10 @@ class SecurityExtension extends DataExtension
         'MembershipLoginForm',
     );
     
+    /**
+     * @return mixed
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
     public function MembershipLoginForm()
     {
         return Injector::inst()->get( MembershipAuthenticator::class )->getLoginHandler( $this->owner->Link() )

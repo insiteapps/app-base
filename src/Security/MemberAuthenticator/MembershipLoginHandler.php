@@ -20,10 +20,7 @@ class MembershipLoginHandler extends LoginHandler
     ];
     
     /**
-     * Return the CMSMemberLoginForm form
-     *
-     * @skipUpgrade
-     * @return CMSMemberLoginForm
+     * @return static
      */
     public function MembershipLoginForm()
     {

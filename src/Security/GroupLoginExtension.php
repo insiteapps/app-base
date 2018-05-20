@@ -2,6 +2,7 @@
 
 namespace InsiteApps\Security;
 
+use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TreeDropdownField;
@@ -23,8 +24,8 @@ class GroupLoginExtension extends DataExtension
     {
         $fields->addFieldsToTab( "Root.Members(after login)", [
             CheckboxField::create( "GoToAdmin", " Go to Admin area" ),
-            TreeDropdownField::create( "LinkPageID", "Or select a Page to redirect to", "SiteTree" ),
-        ], 'Members' );
+            TreeDropdownField::create( "LinkPageID", "Or select a Page to redirect to", SiteTree::class ),
+        ] );
         
     }
     
