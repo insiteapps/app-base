@@ -28,15 +28,15 @@ class MainController extends Controller
         }
     }
     
-    
-    protected function getPostData()
+    /**
+     * @param null $query
+     *
+     * @return array|string
+     */
+    protected function getPostData( $query = null )
     {
         $data = filter_input_array( INPUT_POST );
-        if ( count( $data ) ) {
-            return RecordController::cleanREQUEST( $data );
-        }
-        
-        return [];
+        return $this->processRequestData( $data, $query );
     }
     
     /**
@@ -47,11 +47,23 @@ class MainController extends Controller
     protected function getRequestData( $query = null )
     {
         
-        
         $data = filter_input_array( INPUT_GET );
+        return $this->processRequestData( $data, $query );
+    }
+    
+    /**
+     * @param      $data
+     * @param null $query
+     *
+     * @return array|string
+     */
+    protected function processRequestData( $data, $query = null )
+    {
+        
+        
         if ( $data ) {
             $aData = RecordController::cleanREQUEST( $data );
-            if ( $query ) {
+            if ( $query && isset( $aData[ $query ] ) ) {
                 return $aData[ $query ];
             }
             
@@ -61,6 +73,7 @@ class MainController extends Controller
         
         return [];
     }
+    
     
     public function Member()
     {
