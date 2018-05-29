@@ -6,6 +6,7 @@ use InsiteApps\Data\Curl\CurlManager;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Convert;
+use SilverStripe\Dev\Debug;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Group;
 use SilverStripe\Security\Permission;
@@ -35,7 +36,9 @@ class MainController extends Controller
      */
     protected function getPostData( $query = null )
     {
+        
         $data = filter_input_array( INPUT_POST );
+        
         return $this->processRequestData( $data, $query );
     }
     
@@ -46,9 +49,20 @@ class MainController extends Controller
      */
     protected function getRequestData( $query = null )
     {
+        $data  = $this->request->requestVars();
+        $aData = RecordController::cleanREQUEST( $data );
+        if ( $query ) {
+            
+            
+            if ( isset( $aData[ $query ] ) ) {
+                return $aData[ $query ];
+            }
+            
+            return false;
+        }
+    
+        return $aData;
         
-        $data = filter_input_array( INPUT_GET );
-        return $this->processRequestData( $data, $query );
     }
     
     /**
@@ -83,6 +97,7 @@ class MainController extends Controller
     
     public static function find_or_make_members_group()
     {
+        
         $group = DataObject::get_one( "Group", "Code='members'" );
         if ( !$group ) {
             $group        = new Group();
