@@ -1,3 +1,9 @@
+var $window = $(window),
+    $document = $(document),
+    $html = $('html'),
+    $body = $('body');
+
+
 var AjaxLoading = function () {
     return {
         start: function (id, reverse, dark) {
@@ -164,3 +170,33 @@ var PlugInManager = function () {
         }
     }
 }();
+
+PlugInManager.niceScrollInit = function () {
+
+    var niceScrollOptions = {
+        zindex: 5000,
+        styler: "fb",
+        cursorcolor: "#fff",
+        cursordragontouch: false,
+        scrollspeed: 10,
+        mousescrollstep: 300,
+        touchbehavior: true,
+        smoothscroll: false // because it interferes with the hor to ver scroll script
+    }
+
+    if (window.isWindows) {
+        var mScrollBar = $(".mScrollBar");
+        mScrollBar.niceScroll(niceScrollOptions);
+        mScrollBar.getNiceScroll().hide();
+
+
+        $html.niceScroll(niceScrollOptions);
+        $html.getNiceScroll().hide();
+
+        $html.addClass('has--nicescroll');
+
+        $(document).on('jp_carousel.afterClose', function () {
+            $html.getNiceScroll().resize();
+        });
+    }
+}
