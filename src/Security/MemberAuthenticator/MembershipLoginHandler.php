@@ -56,9 +56,9 @@ class MembershipLoginHandler extends LoginHandler
      //   return;
         
         if ( isset( $_REQUEST[ 'BackURL' ] ) && $_REQUEST[ 'BackURL' ] && Director::is_site_url( $_REQUEST[ 'BackURL' ] ) ) {
-            //$BackURL = $_REQUEST[ 'BackURL' ];
+            $BackURL = $_REQUEST[ 'BackURL' ];
             
-            //return $this->redirect( $BackURL );
+            return $this->redirect( $BackURL );
         } else {
             return $this->redirect( '/' );
         }
