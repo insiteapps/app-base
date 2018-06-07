@@ -12,16 +12,17 @@ use SilverStripe\ORM\DataExtension;
 class GroupLoginExtension extends DataExtension
 {
     
-    static $db = array(
+    private static $db = array(
         "GoToAdmin" => "Boolean",
     );
     
-    static $has_one = array(
+    private static $has_one = array(
         "LinkPage" => "SiteTree",
     );
     
     public function updateCMSFields( FieldList $fields )
     {
+        
         $fields->addFieldsToTab( "Root.Members(after login)", [
             CheckboxField::create( "GoToAdmin", " Go to Admin area" ),
             TreeDropdownField::create( "LinkPageID", "Or select a Page to redirect to", SiteTree::class ),
