@@ -20,6 +20,7 @@ namespace InsiteApps\Common;
 
 use InsiteApps\Data\Curl\CurlManager;
 use SilverStripe\Core\Injector\Injectable;
+use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
 
@@ -27,6 +28,12 @@ class Manager
 {
     
     use Injectable;
+    
+    
+    protected static  function get_db_datetime()
+    {
+        return DBDatetime::now()->Rfc2822();
+    }
     
     /**
      * @param int $x

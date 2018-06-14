@@ -8,6 +8,7 @@ use SilverStripe\Control\Director;
 use SilverStripe\Core\Convert;
 use SilverStripe\Dev\Debug;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\Security\Group;
 use SilverStripe\Security\Permission;
 use SilverStripe\Security\Security;
@@ -60,7 +61,7 @@ class MainController extends Controller
             
             return false;
         }
-    
+        
         return $aData;
         
     }
@@ -121,25 +122,34 @@ class MainController extends Controller
     }
     
     /**
-     * @param array $request
-     * @param array $Unset
+     * @param array|null $request
+     * @param array      $Unset
      *
      * @return array|string
      */
-    public static function cleanREQUEST( array $request = array(), array $Unset = array() )
+    public static function cleanREQUEST( array $request = [], array $Unset = array() )
     {
         
-        $request  = Convert::raw2sql( $request );
-        $aUnset   = array(
-            'url',
-            'SecurityID',
-        );
-        $arrUnset = array_merge( $aUnset, $Unset );
-        foreach ( $arrUnset as $value ) {
-            unset( $request[ $value ] );
+        $request = Convert::raw2sql( $request );
+        if ( count( $request ) ) {
+            
+            
+            $aUnset   = array(
+                'url',
+                'SecurityID',
+            );
+            $arrUnset = array_merge( $aUnset, $Unset );
+            foreach ( $arrUnset as $value ) {
+                unset( $request[ $value ] );
+            }
         }
         
         return $request;
+    }
+    
+    public function get_db_datetime()
+    {
+        return DBDatetime::now()->Rfc2822();
     }
     
     public function get_listing()
