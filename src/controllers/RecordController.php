@@ -1,4 +1,19 @@
 <?php
+/**
+ *
+ * @copyright (c) 2018 Insite Apps - http://www.insiteapps.co.za
+ * @package insiteapps
+ * @author Patrick Chitovoro  <patrick@insiteapps.co.za>
+ * All rights reserved. No warranty, explicit or implicit, provided.
+ *
+ * NOTICE:  All information contained herein is, and remains the property of Insite Apps and its suppliers,  if any.
+ * The intellectual and technical concepts contained herein are proprietary to Insite Apps and its suppliers and may be covered by South African. and Foreign Patents, patents in process, and are protected by trade secret or copyright laws.
+ * Dissemination of this information or reproduction of this material is strictly forbidden unless prior written permission is obtained from Insite Apps.
+ * Proprietary and confidential.
+ * There is no freedom to use, share or change this file.
+ *
+ *
+ */
 
 namespace InsiteApps\Control;
 
@@ -18,6 +33,14 @@ class RecordController extends MainController
     {
         
         return self::create()->Link( $action );
+    }
+    
+    public static function Guid()
+    {
+        mt_srand((double)microtime() * 10000);
+        $charid = strtoupper(md5(uniqid(rand(), true)));
+        $hyphen = chr(45);// "-"
+        return substr($charid, 0, 8) . $hyphen . substr($charid, 8, 4) . $hyphen . substr($charid, 12, 4) . $hyphen . substr($charid, 16, 4) . $hyphen . substr($charid, 20, 12);
     }
     
     function generate_page_controller( $title = "Page" )
