@@ -29,7 +29,7 @@ class Manager
     use Injectable;
     
     
-    protected static  function get_db_datetime()
+    public static  function get_db_datetime()
     {
         return DBDatetime::now()->Rfc2822();
     }
