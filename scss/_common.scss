@@ -54,7 +54,6 @@ $red: #a94442;
   transform: translate(-50%, -50%);
 }
 
-
 label.required {
   color: $red;
 }
@@ -83,22 +82,24 @@ form {
 }
 
 .message {
-  padding: 5px 15px;
 
+  //display: block;
+
+  position: relative;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
   border: 1px solid transparent;
-  border-radius: 0;
-  display: block;
-  margin: 2px 0 10px;
-
-  &.validation {
-    color: #a94442;
-  }
+  border-radius: .25rem;
+  float: left;
+  width: 100%;
+  &.validation,
   &.required,
   &.error,
   &.bad {
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    float: none;
   }
   &.good {
     color: #3c763d;
