@@ -30,9 +30,14 @@ namespace InsiteApps\AppBase\Mailer {
             'Name'  => 'Varchar(200)',
             'Email' => 'Varchar(200)',
         );
-        private static $has_one        = array(
-            'Page' => Page::class,
-        );
+        /**
+         * @var array
+         */
+        private static $has_one        = [ 'Page' => Page::class, ];
+    
+        /**
+         * @var array
+         */
         private static $summary_fields = array(
             'Name',
             'Email',
