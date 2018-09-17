@@ -20,6 +20,7 @@ namespace InsiteApps\AppBase\Mailer {
     
     
     use SilverStripe\ORM\DataObject;
+    use Page;
     
     class EmailRecipient extends DataObject
     {
@@ -29,7 +30,9 @@ namespace InsiteApps\AppBase\Mailer {
             'Name'  => 'Varchar(200)',
             'Email' => 'Varchar(200)',
         );
-        private static $has_one        = array();
+        private static $has_one        = array(
+            'Page' => Page::class,
+        );
         private static $summary_fields = array(
             'Name',
             'Email',
