@@ -19,7 +19,7 @@
 namespace InsiteApps\Forms {
     
     
-    use InsiteApps\AppBase\EmailRecipient;
+    use InsiteApps\AppBase\Mailer\EmailRecipient;
     use InsiteApps\Secure\Directory\BusinessListingPage;
     use SilverStripe\Forms\FieldList;
     use SilverStripe\Forms\GridField\GridField;
@@ -40,7 +40,7 @@ namespace InsiteApps\Forms {
         private static $has_one = array();
         
         private static $has_many = array(
-            "EmailRecipients" => EmailRecipient::class,
+            "EmailRecipients" => EmailRecipient::class
         );
         
         public function updateCMSFields( FieldList $fields )
