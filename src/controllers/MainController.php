@@ -154,8 +154,6 @@ class MainController extends Controller
             
             $aUnset   = array(
                 'url',
-                '_id',
-                'my',
                 'SecurityID',
             );
             $arrUnset = array_merge( $aUnset, $Unset );
