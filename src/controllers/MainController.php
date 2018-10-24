@@ -2,15 +2,16 @@
 /**
  *
  * @copyright (c) 2018 Insite Apps - http://www.insiteapps.co.za
- * @package insiteapps
- * @author Patrick Chitovoro  <patrick@insiteapps.co.za>
+ * @package       insiteapps
+ * @author        Patrick Chitovoro  <patrick@insiteapps.co.za>
  * All rights reserved. No warranty, explicit or implicit, provided.
  *
  * NOTICE:  All information contained herein is, and remains the property of Insite Apps and its suppliers,  if any.
- * The intellectual and technical concepts contained herein are proprietary to Insite Apps and its suppliers and may be covered by South African. and Foreign Patents, patents in process, and are protected by trade secret or copyright laws.
- * Dissemination of this information or reproduction of this material is strictly forbidden unless prior written permission is obtained from Insite Apps.
- * Proprietary and confidential.
- * There is no freedom to use, share or change this file.
+ * The intellectual and technical concepts contained herein are proprietary to Insite Apps and its suppliers and may be
+ * covered by South African. and Foreign Patents, patents in process, and are protected by trade secret or copyright
+ * laws. Dissemination of this information or reproduction of this material is strictly forbidden unless prior written
+ * permission is obtained from Insite Apps. Proprietary and confidential. There is no freedom to use, share or change
+ * this file.
  *
  *
  */
@@ -25,6 +26,7 @@ use SilverStripe\Dev\Debug;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\Security\Group;
+use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\Security\Security;
 use SilverStripe\View\Requirements;
@@ -65,6 +67,7 @@ class MainController extends Controller
      */
     protected function getRequestData( $query = null )
     {
+        
         $data  = $this->request->requestVars();
         $aData = RecordController::cleanREQUEST( $data );
         if ( $query ) {
@@ -151,6 +154,8 @@ class MainController extends Controller
             
             $aUnset   = array(
                 'url',
+                '_id',
+                'my',
                 'SecurityID',
             );
             $arrUnset = array_merge( $aUnset, $Unset );
@@ -164,6 +169,7 @@ class MainController extends Controller
     
     public function get_db_datetime()
     {
+        
         return DBDatetime::now()->Rfc2822();
     }
     
@@ -250,10 +256,20 @@ class MainController extends Controller
         
     }
     
-    public static function IsAdmin()
+    
+    /**
+     * @param \SilverStripe\Security\Member|null $member
+     *
+     * @return bool|int
+     */
+    public static function IsAdmin( Member $member = null )
     {
         
-        return Permission::check( "ADMIN" );
+        if ( !$member ) {
+            $member = Security::getCurrentUser();
+        }
+        
+        return Permission::checkMember( $member, "ADMIN" );
     }
     
     
