@@ -42,6 +42,10 @@ class Multimedia extends DataObject
         'Image',
     ];
     
+    private static $cascade_deletes = [
+        'Image',
+    ];
+    
     public function getCMSFields()
     {
         $f = parent::getCMSFields();
