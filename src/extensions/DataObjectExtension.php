@@ -28,7 +28,6 @@ namespace InsiteApps\ORM {
     use SilverStripe\ORM\DataExtension;
     use SilverStripe\ORM\DataList;
     use SilverStripe\ORM\FieldType\DBField;
-    use SilverStripe\Security\Member;
     use SilverStripe\Security\Permission;
     use SilverStripe\Security\Security;
     use SilverStripe\View\Requirements;
