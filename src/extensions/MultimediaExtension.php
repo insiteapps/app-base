@@ -24,8 +24,7 @@ namespace InsiteApps\Assets {
     use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
     use SilverStripe\ORM\DataExtension;
     
-    class d
-        extends DataExtension
+    class MultimediaExtension extends DataExtension
     {
         
         private static $has_many = array(
