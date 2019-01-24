@@ -40,6 +40,32 @@ namespace InsiteApps\ORM {
             return GOOGLE_MAP_API_KEY;
         }
         
+        public function Summary( $len = 150 )
+        {
+            
+            $aContent = array(
+                $this->owner->Content,
+                $this->owner->Description,
+            );
+            
+            $aContent    = array_filter( $aContent );
+            $raw_content = reset( $aContent );
+            
+            $content_strip = preg_replace( "/<img[^>]+\>/i", " ", $raw_content );
+            $content       = preg_replace( "/<p[^>]*>[\s|&nbsp;]*<\/p>/", '', $content_strip );
+            $html          = static::truncate( str_replace( [
+                '<p></p>',
+                '<p> </p>',
+            ], '', $content ), $len );
+            if ( $html->value ) {
+                return $html->value;
+            }
+            
+            return $html;
+            
+            
+        }
+        
         /*
         * Animate.css classes
         * A DO helper method that enables us to list place a random list of
