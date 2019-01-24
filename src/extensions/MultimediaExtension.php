@@ -24,7 +24,8 @@ namespace InsiteApps\Assets {
     use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
     use SilverStripe\ORM\DataExtension;
     
-    class MultimediaExtension extends DataExtension
+    class d
+        extends DataExtension
     {
         
         private static $has_many = array(
@@ -36,7 +37,7 @@ namespace InsiteApps\Assets {
             $ImagesGridFieldConfig = GridFieldConfig_RecordEditor::create();
             $ImagesGridFieldConfig->addComponent( new  BulkUploader() );
             $ImagesGridFieldConfig->getComponentByType( BulkUploader::class )
-                                  ->setUfSetup( 'setFolderName', 'businesses/images/' );
+                                  ->setUfSetup( 'setFolderName', 'multimedia' );
             
             $fields->addFieldToTab( 'Root.Images', new GridField( 'Images', 'Images', $this->owner->Images(), $ImagesGridFieldConfig ) );
             

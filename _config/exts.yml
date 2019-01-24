@@ -13,6 +13,7 @@ SilverStripe\Security\Group:
 PageController:
   extensions:
     - InsiteApps\Security\SecurityExtension
+    - InsiteApps\AppBase\PageControllerExtension
 
 SilverStripe\Security\Security:
   extensions:
@@ -25,7 +26,3 @@ SilverStripe\Forms\FormField:
 Page:
   extensions:
     - InsiteApps\AppBase\PageExtension
-
-PageController:
-  extensions:
-    - InsiteApps\AppBase\PageControllerExtension
