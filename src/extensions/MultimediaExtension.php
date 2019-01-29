@@ -23,6 +23,7 @@ namespace InsiteApps\Assets {
     use SilverStripe\Forms\GridField\GridField;
     use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
     use SilverStripe\ORM\DataExtension;
+    use UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows;
     
     class MultimediaExtension extends DataExtension
     {
@@ -35,6 +36,8 @@ namespace InsiteApps\Assets {
         {
             $ImagesGridFieldConfig = GridFieldConfig_RecordEditor::create();
             $ImagesGridFieldConfig->addComponent( new  BulkUploader() );
+            $ImagesGridFieldConfig->addComponent( new GridFieldSortableRows( 'SortOrder' ) );
+            
             $ImagesGridFieldConfig->getComponentByType( BulkUploader::class )
                                   ->setUfSetup( 'setFolderName', 'multimedia' );
             
@@ -42,5 +45,20 @@ namespace InsiteApps\Assets {
             
             
         }
+        
+        public function Image()
+        {
+            
+            if ( count( $this->owner->Images() ) ) {
+                $image = $this->owner->Images()->first();
+                
+                return $image->Image();
+            }
+            
+            
+            return false;
+        }
+        
+        
     }
 }
