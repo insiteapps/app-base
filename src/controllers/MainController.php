@@ -165,6 +165,27 @@ class MainController extends Controller
         return $request;
     }
     
+    public static function SimpleCleanREQUEST( array $request = [], array $Unset = array() )
+    {
+        
+        //$request = Convert::raw2sql( $request );
+        if ( count( $request ) ) {
+            
+            
+            $aUnset   = array(
+                'url',
+                'SecurityID',
+            );
+            $arrUnset = array_merge( $aUnset, $Unset );
+            foreach ( $arrUnset as $value ) {
+                unset( $request[ $value ] );
+            }
+        }
+        
+        return $request;
+    }
+    
+    
     public function get_db_datetime()
     {
         
