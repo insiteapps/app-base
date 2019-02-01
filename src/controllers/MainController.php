@@ -168,7 +168,7 @@ class MainController extends Controller
     public static function SimpleCleanREQUEST( array $request = [], array $Unset = array() )
     {
         
-        //$request = Convert::raw2sql( $request );
+        $request = Convert::raw2xml( $request );
         if ( count( $request ) ) {
             
             
