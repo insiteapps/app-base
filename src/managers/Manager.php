@@ -82,12 +82,16 @@ class Manager
         
     }
     
-    function Member()
+    public  function Member()
     {
         
         return Security::getCurrentUser();
     }
     
+    public static function getMember()
+    {
+        return Security::getCurrentUser();
+    }
     
     
     /**
