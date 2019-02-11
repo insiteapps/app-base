@@ -1,6 +1,7 @@
 SilverStripe\Control\Session:
   cookie_secure: true
 
+
 ---
 Name: MyAuth
 After:
