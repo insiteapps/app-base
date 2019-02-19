@@ -129,13 +129,27 @@ class MainController extends Controller
         return $group;
     }
     
-    static public function AddProtocol( $url )
+    public static function AddProtocol( $url )
     {
         
         if ( strtolower( substr( $url, 0, 8 ) ) !== 'https://' && strtolower( substr( $url, 0, 7 ) ) !== 'http://' ) {
             return 'http://' . $url;
         }
         
+        return $url;
+    }
+    
+    public static function RemoveProtocol( $url )
+    {
+        $disallowed = array(
+            'http://',
+            'https://',
+        );
+        foreach ( $disallowed as $d ) {
+            if ( strpos( $url, $d ) === 0 ) {
+                return str_replace( $d, '', $url );
+            }
+        }
         return $url;
     }
     
