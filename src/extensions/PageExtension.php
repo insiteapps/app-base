@@ -27,6 +27,7 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Core\Manifest\ModuleLoader;
+use SilverStripe\Subsites\Model\Subsite;
 use SilverStripe\View\Requirements;
 use SilverStripe\View\SSViewer;
 use SilverStripe\View\ThemeResourceLoader;
@@ -49,12 +50,24 @@ class PageExtension extends DataExtension
     
     public function ThemeDir()
     {
-        $loader     = ThemeResourceLoader::inst();
-        $themes     = SSViewer::get_themes();
-        $paths      = $loader->getThemePaths( $themes );
-        $Theme_path = $paths[ 0 ];
+        if ( class_exists( Subsite::class ) ) {
+            if ( $subsite = Subsite::currentSubsite() ) {
+                if ( $theme = $subsite->Theme ) {
+                    SSViewer::set_themes( [
+                        $theme,
+                        SSViewer::DEFAULT_THEME,
+                    ] );
+                }
+            }
+            
+        }
+        $loader = ThemeResourceLoader::inst();
+        $themes = SSViewer::get_themes();
+        $paths  = $loader->getThemePaths( $themes );
         
-        return $Theme_path;
+        //Debug::show( $paths );
+        
+        return $paths[ 0 ];
         
     }
     
@@ -117,7 +130,7 @@ class PageControllerExtension extends DataExtension
     
     public function onAfterInit()
     {
-       // Requirements::insertHeadTags( '<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">' );
+        // Requirements::insertHeadTags( '<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">' );
         
     }
     
