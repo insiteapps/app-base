@@ -129,7 +129,6 @@ class MainController extends Controller
         return $group;
     }
     
-    
     public static function AddProtocol( $url )
     {
         
