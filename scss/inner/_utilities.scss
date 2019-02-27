@@ -77,9 +77,9 @@ $CamboRegular: "CamboRegular", Georgia, "Times New Roman", Times, serif;
 .green-text {
   color: $dark-green;
 }
-
+/*
 a {
-  /*display: block;*/
+  display: block;
 }
 
 figure {
@@ -294,7 +294,7 @@ h3.headerRow {
 .margin-right-10 {
   margin-right: 10px;
 }
-
+*/
 /**** Isotope CSS3 transitions ****/
 
 .isotope,
@@ -1020,7 +1020,7 @@ h3.headerRow {
     font-size: 2.2em;
   }
 }
-
+/*
 @media (min-width: 1200px) {
 }
 
@@ -1086,3 +1086,4 @@ h3.headerRow {
 .u-space-b4 {
   margin-bottom: 24px !important;
 }
+*/
