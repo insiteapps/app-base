@@ -19,6 +19,10 @@ $red: #a94442;
     background: rgba(0, 0, 0, .7) url(../images/loading.gif) 50% 50% no-repeat;
     color: #fff;
   }
+
+  &.clear{
+    background-color: transparent !important;
+  }
 }
 
 
