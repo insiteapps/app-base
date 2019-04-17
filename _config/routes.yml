@@ -1,0 +1,4 @@
+SilverStripe\Control\Director:
+  rules:
+    'login': 'Security/login'
+    'logout': 'Security/logout'
