@@ -2,7 +2,9 @@
   "name": "insiteapps/app-base",
   "description": "Silverstripe Insite Apps (south africa) commonly used project files",
   "type": "silverstripe-module",
-  "keywords": ["insite"],
+  "keywords": [
+    "insite"
+  ],
   "license": "BSD-3-Clause",
   "authors": [
     {
@@ -14,6 +16,11 @@
     "silverstripe/framework": "^4"
   },
   "extra": {
-    "installer-name": "app-base"
+    "installer-name": "app-base",
+    "expose": [
+      "js",
+      "images",
+      "css"
+    ]
   }
 }
