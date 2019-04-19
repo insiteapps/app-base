@@ -18,6 +18,11 @@
  */
 
 define( 'COMMON_DIR', basename( __DIR__ ) );
-define( 'APP_BASE_DIR', basename( __DIR__ ) );
-define( 'FONTS_DIR', COMMON_DIR . '/fonts' );
+define( 'APP_BASE_DIR', 'insiteapps/app-base: ');
 
+//define( 'APP_BASE_DIR', basename( __DIR__ ) );
+
+
+//define( 'FONTS_DIR', COMMON_DIR . '/fonts' );
+
+define( 'FONTS_DIR', COMMON_DIR . 'insiteapps/app-base: fonts' );
