@@ -9,15 +9,13 @@
   "authors": [
     {
       "name": "Itayi Patrick Chitovoro",
-      "email": "patrick@insitesolutions.co.za"
+      "email": "patrick@insiteapps.co.za"
     }
   ],
   "require": {
     "silverstripe/framework": "~4",
-    "silverstripe/asset-admin": "~1"
   },
   "extra": {
-    "installer-name": "app-base",
     "expose": [
       "js",
       "images",
