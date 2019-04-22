@@ -432,6 +432,12 @@ namespace InsiteApps\ORM {
         {
             return Permission::check( 'ADMIN' );
         }
+    
+    
+        public function isSystemUser()
+        {
+            return Permission::check( 'SYSTEM_USER' );
+        }
         
         /** writeToStateAndPublish
          * Data Object Write for SiteTree object in the frontend
