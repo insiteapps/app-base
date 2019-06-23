@@ -60,9 +60,9 @@ class DataObjectURLSegmentExtension extends DataExtension
     {
         $baseLink = $this->owner->BaseLink();
         if ( !empty( $baseLink ) ) {
-            $urlsegment = SiteTreeURLSegmentField::create( 'URLSegment' )->setURLPrefix( $baseLink );
+            $urlSegment = SiteTreeURLSegmentField::create( 'URLSegment' )->setURLPrefix( $baseLink );
             
-            $fields->addFieldToTab( "Root.Main", $urlsegment );
+            $fields->addFieldToTab( "Root.Main", $urlSegment );
         } else {
             $fields->addFieldToTab( "Root.Main", ReadonlyField::create( "URLSegment" ) );
         }
