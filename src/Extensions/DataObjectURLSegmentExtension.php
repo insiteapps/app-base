@@ -27,6 +27,7 @@ use SilverStripe\Forms\FieldList;
 
 namespace InsiteApps\ORM;
 
+use SilverStripe\CMS\Forms\SiteTreeURLSegmentField;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Config;
@@ -38,94 +39,99 @@ use SilverStripe\ORM\DataExtension;
 
 class DataObjectURLSegmentExtension extends DataExtension
 {
-
+    
     private static $db = array(
         'URLSegment' => 'Varchar(200)',
     );
-
+    
     private static $indexes = array(
         "URLSegment" => true,
     );
-
+    
     private static $casting = array(
-        "Breadcrumbs" => "HTMLText",
-        'Link' => 'Text',
+        "Breadcrumbs"  => "HTMLText",
+        'Link'         => 'Text',
         'RelativeLink' => 'Text',
         'AbsoluteLink' => 'Text',
-        'TreeTitle' => 'HTMLText',
+        'TreeTitle'    => 'HTMLText',
     );
-
-    /**
-     * @param \SilverStripe\Forms\FieldList $fields
-     */
-    public function updateCMSFields(FieldList $fields)
+    
+    public function updateCMSFields( FieldList $fields )
     {
-        $fields->addFieldToTab("Root.Main", ReadonlyField::create("URLSegment"));
-
+        $baseLink = $this->owner->BaseLink();
+        if ( !empty( $baseLink ) ) {
+            $urlsegment = SiteTreeURLSegmentField::create( 'URLSegment' )->setURLPrefix( $baseLink );
+            
+            $fields->addFieldToTab( "Root.Main", $urlsegment );
+        } else {
+            $fields->addFieldToTab( "Root.Main", ReadonlyField::create( "URLSegment" ) );
+        }
+        
+        
     }
-
+    
     public function AbsoluteLink()
     {
-        return Director::absoluteURL($this->owner->Link());
+        return Director::absoluteURL( $this->owner->Link() );
     }
-
-
+    
+    
     public function MenuTitle()
     {
-        return $this->owner->getField("Title");
+        return $this->owner->getField( "Title" );
     }
-   
+    
     public function onBeforeWrite()
     {
-        $aFields = array(
+        $aFields        = array(
             'Name',
             'Title',
         );
-        $aChangedFields = $this->owner->getChangedFields(true, 2);
-        if (count($aChangedFields)) {
-            $aChanged = array_intersect(array_keys($aChangedFields), $aFields);
-            if (count($aChanged)) {
-                $this->owner->URLSegment = $this->generateUniqueURLSegment($this->owner->Title);
-                $this->owner->URLSegment = $this->generateUniqueURLSegment($this->owner->Title);
+        $aChangedFields = $this->owner->getChangedFields( true, 2 );
+        if ( count( $aChangedFields ) ) {
+            $aChanged = array_intersect( array_keys( $aChangedFields ), $aFields );
+            if ( count( $aChanged ) ) {
+                $this->owner->URLSegment = $this->generateUniqueURLSegment( $this->owner->Title );
+                $this->owner->URLSegment = $this->generateUniqueURLSegment( $this->owner->Title );
             }
         }
-        $name = $this->owner->Title ?: $this->owner->Name;
-        $this->owner->URLSegment = $this->generateUniqueURLSegment($name);
+        $name                    = $this->owner->Title ? : $this->owner->Name;
+        $this->owner->URLSegment = $this->generateUniqueURLSegment( $name );
         //if ( !$this->owner->URLSegment ) {
-
+        
         //}
-
+        
         parent::onBeforeWrite();
     }
-
+    
     /*
     * Generate Unique URLSegment
     */
-    public function generateUniqueURLSegment($title)
+    public function generateUniqueURLSegment( $title )
     {
-        $URLSegment = singleton(SiteTree::class)->generateURLSegment($title);
+        $URLSegment     = singleton( SiteTree::class )->generateURLSegment( $title );
         $prevurlsegment = $URLSegment;
-        $i = 1;
-        while (!$this->validURLSegment($URLSegment)) {
+        $i              = 1;
+        while ( !$this->validURLSegment( $URLSegment ) ) {
             $URLSegment = $prevurlsegment . "-" . $i;
             $i++;
         }
-
+        
         return $URLSegment;
-
+        
     }
-
-    public function validURLSegment($URLSegment)
+    
+    public function validURLSegment( $URLSegment )
     {
-        $existingPage = $this->owner->get()->filter(array(
+        $existingPage = $this->owner->get()->filter( array(
             'URLSegment' => $URLSegment,
-        ))->exclude(array(
+        ) )->exclude( array(
             'ID' => $this->owner->ID,
-        ))->first();
-        if ($existingPage) {
+        ) )->first();
+        if ( $existingPage ) {
             return false;
         }
-
+        
         return true;
     }
 }
