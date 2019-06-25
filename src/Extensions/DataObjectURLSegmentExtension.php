@@ -58,12 +58,18 @@ class DataObjectURLSegmentExtension extends DataExtension
     
     public function updateCMSFields( FieldList $fields )
     {
-        $baseLink = $this->owner->BaseLink();
-        if ( !empty( $baseLink ) ) {
-            $urlSegment = SiteTreeURLSegmentField::create( 'URLSegment' )->setURLPrefix( $baseLink );
-            
-            $fields->addFieldToTab( "Root.Main", $urlSegment );
-        } else {
+        $baseLink = false;
+        if ( method_exists( $this->owner, 'BaseLink' ) ) {
+            $baseLink = $this->owner->BaseLink();
+            if ( !empty( $baseLink ) ) {
+                $baseLink   = true;
+                $urlSegment = SiteTreeURLSegmentField::create( 'URLSegment' )->setURLPrefix( $baseLink );
+                
+                $fields->addFieldToTab( "Root.Main", $urlSegment );
+            }
+        }
+        
+        if ( !$baseLink ) {
             $fields->addFieldToTab( "Root.Main", ReadonlyField::create( "URLSegment" ) );
         }
         
