@@ -54,18 +54,18 @@ class Manager
     }
     
     /**
+     *
      * Get list of all members you have the "Full administrative right" permission
      *
-     * @return \DataList
+     * @return \SilverStripe\ORM\DataList
      */
     public static function get_admin_list()
     {
         
-        $oMembers = Member::get()->leftJoin( "Group_Members", "Group_Members.MemberID = Member.ID" )
-                          ->leftJoin( "Permission", "Permission.GroupID = Group_Members.GroupID" )
-                          ->filter( [ "Permission.Code" => 'ADMIN' ] );
+        return Member::get()->leftJoin( 'Group_Members', 'Group_Members.MemberID = Member.ID' )
+                     ->leftJoin( 'Permission', 'Permission.GroupID = Group_Members.GroupID' )
+                     ->filter( [ 'Code' => 'ADMIN' ] );
         
-        return $oMembers;
     }
     
     /**
@@ -82,7 +82,7 @@ class Manager
         
     }
     
-    public  function Member()
+    public function Member()
     {
         
         return Security::getCurrentUser();
