@@ -33,14 +33,14 @@ namespace InsiteApps\Forms {
     {
         
         private static $db = array(
-            "OnCompleteTitle" => 'Varchar(255)',
-            "OnComplete"      => "HTMLText",
+            'OnCompleteTitle' => 'Varchar(255)',
+            'OnComplete'      => 'HTMLText',
         );
         
         private static $has_one = array();
         
         private static $has_many = array(
-            "EmailRecipients" => EmailRecipient::class
+            'EmailRecipients' => EmailRecipient::class
         );
         
         public function updateCMSFields( FieldList $fields )
