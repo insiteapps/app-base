@@ -17,7 +17,7 @@
  *
  */
 
-namespace InsiteApps\Vend\Extensions;
+namespace InsiteApps\Essentials\Extensions;
 
 use DirectApp\Managers\AppManager;
 use SilverStripe\ORM\DataExtension;
