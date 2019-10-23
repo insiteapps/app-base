@@ -48,7 +48,9 @@ namespace InsiteApps\Assets {
         
         public function Image()
         {
-            
+            if ( method_exists( $this->owner, 'HeroImage' ) ) {
+                return $this->owner->HeroImage();
+            }
             if ( count( $this->owner->Images() ) ) {
                 $image = $this->owner->Images()->first();
                 
