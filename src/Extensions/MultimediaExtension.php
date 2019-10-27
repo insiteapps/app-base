@@ -31,6 +31,9 @@ namespace InsiteApps\Assets {
         private static $has_many = array(
             'Images' => Multimedia::class,
         );
+        private static $casting  = [
+            'RawClassName' => 'Varchar',
+        ];
         
         public function updateCMSFields( FieldList $fields )
         {
@@ -44,6 +47,18 @@ namespace InsiteApps\Assets {
             $fields->addFieldToTab( 'Root.Images', new GridField( 'Images', 'Images', $this->owner->Images(), $ImagesGridFieldConfig ) );
             
             
+        }
+    
+        public function HeroImage()
+        {
+        
+            if ( count( $this->owner->Images() ) ) {
+                $image = $this->owner->Images()->sort( 'Rand()' )->first();
+            
+                return $image->Image();
+            }
+        
+            return false;
         }
         
         public function Image()
@@ -61,6 +76,40 @@ namespace InsiteApps\Assets {
             return false;
         }
         
+        public function getRawClassName()
+        {
+            $reflect = new \ReflectionClass( $this->ClassName );
+            return $reflect->getShortName();
+        }
         
+        public function GetImages()
+        {
+            
+            $aImages = [];
+            
+            if ( count( $this->owner->Images() ) ) {
+                $images = $this->owner->Images()->limit( 8 );
+                foreach ( $images as $multimedia ) {
+                    $multimedia->write();
+                    $aMultimedia = array(
+                        'ID'                              => $multimedia->Guid,
+                        $this->owner->RawClassName . 'ID' => $this->owner->ID,
+                    );
+                    if ( $multimedia->getImageLink() ) {
+                        $aMultimedia[ 'ImageFilename' ] = $multimedia->getImageLink();
+                    } else {
+                        $aMultimedia[ 'ImageFilename' ] = $multimedia->Image()->FillMax( 800, 600 )->URL;
+                    }
+                    
+                    
+                    $aImages[] = $aMultimedia;
+                    
+                }
+                
+            }
+            
+            return $aImages;
+            
+        }
     }
 }
