@@ -78,7 +78,7 @@ namespace InsiteApps\Assets {
         
         public function getRawClassName()
         {
-            $reflect = new \ReflectionClass( $this->ClassName );
+            $reflect = new \ReflectionClass( $this->owner->ClassName );
             return $reflect->getShortName();
         }
         
