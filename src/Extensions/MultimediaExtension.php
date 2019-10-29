@@ -92,8 +92,8 @@ namespace InsiteApps\Assets {
                 foreach ( $images as $multimedia ) {
                     $multimedia->write();
                     $aMultimedia = array(
-                        'ID'                              => $multimedia->Guid,
-                        $this->owner->RawClassName . 'ID' => $this->owner->Guid,
+                        'ID'                              => $multimedia->ID,
+                        $this->owner->RawClassName . 'ID' => $this->owner->ID,
                     );
                     if ( $multimedia->getImageLink() ) {
                         $aMultimedia[ 'ImageFilename' ] = $multimedia->getImageLink();
