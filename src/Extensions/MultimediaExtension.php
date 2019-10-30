@@ -53,7 +53,7 @@ namespace InsiteApps\Assets {
         {
         
             if ( count( $this->owner->Images() ) ) {
-                $image = $this->owner->Images()->sort( 'Rand()' )->first();
+                $image = $this->owner->Images()->first();
             
                 return $image->Image();
             }
