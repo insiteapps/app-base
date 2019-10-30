@@ -48,18 +48,6 @@ namespace InsiteApps\Assets {
             
             
         }
-    
-        public function HeroImage()
-        {
-        
-            if ( count( $this->owner->Images() ) ) {
-                $image = $this->owner->Images()->first();
-            
-                return $image->Image();
-            }
-        
-            return false;
-        }
         
         public function Image()
         {
@@ -82,7 +70,7 @@ namespace InsiteApps\Assets {
             return $reflect->getShortName();
         }
         
-        public function GetImages()
+        public function GetObjectImages()
         {
             
             $aImages = [];
