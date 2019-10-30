@@ -76,7 +76,7 @@ namespace InsiteApps\Assets {
             $aImages = [];
             
             if ( count( $this->owner->Images() ) ) {
-                $images = $this->owner->Images()->limit( 8 );
+                $images = $this->owner->Images()->sort( 'Rand()' )->limit( 10 );
                 foreach ( $images as $multimedia ) {
                     $multimedia->write();
                     $aMultimedia = array(
