@@ -19,10 +19,12 @@
 namespace InsiteApps\Assets {
     
     use Colymba\BulkUpload\BulkUploader;
+    use SilverStripe\Dev\Debug;
     use SilverStripe\Forms\FieldList;
     use SilverStripe\Forms\GridField\GridField;
     use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
     use SilverStripe\ORM\DataExtension;
+    use SilverStripe\ORM\DataList;
     use UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows;
     
     class MultimediaExtension extends DataExtension
@@ -76,8 +78,11 @@ namespace InsiteApps\Assets {
             $aImages = [];
             
             if ( count( $this->owner->Images() ) ) {
-                $images = $this->owner->Images()->sort( 'Rand()' )->limit( 10 );
-                foreach ( $images as $multimedia ) {
+                $oImages = $this->owner->Images();
+                
+                $oImages = $oImages->exclude( 'ID', $oImages->first()->ID )->sort( 'Rand()' )->limit( 10 );
+              
+                foreach ( $oImages as $multimedia ) {
                     $multimedia->write();
                     $aMultimedia = array(
                         'ID'                              => $multimedia->ID,
