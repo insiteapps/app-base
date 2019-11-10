@@ -17,39 +17,40 @@
  *
  */
 
-namespace InsiteApps\Essentials\Extensions;
-
-use DirectApp\Managers\AppManager;
-use SilverStripe\ORM\DataExtension;
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\ReadonlyField;
-
-class GuidExtension extends DataExtension
-{
+namespace InsiteApps\Essentials\Extensions {
     
-    private static $db = [
-        'Guid' => 'Varchar(255)',
-    ];
+    use DirectApp\Managers\AppManager;
+    use SilverStripe\ORM\DataExtension;
+    use SilverStripe\Forms\FieldList;
+    use SilverStripe\Forms\ReadonlyField;
     
-    public function updateCMSFields( FieldList $fields )
+    class GuidExtension extends DataExtension
     {
         
-        $fields->removeByName( [ 'Guid' ] );
+        private static $db = [
+            'Guid' => 'Varchar(255)',
+        ];
         
-    }
-    
-    public function onBeforeWrite()
-    {
-        
-        parent::onBeforeWrite();
-        
-        
-        if ( empty( $this->owner->Guid ) ) {
-            $guid              = AppManager::Guid();
-            $this->owner->Guid = $guid;
+        public function updateCMSFields( FieldList $fields )
+        {
+            
+            $fields->removeByName( [ 'Guid' ] );
+            
         }
         
+        public function onBeforeWrite()
+        {
+            
+            parent::onBeforeWrite();
+            
+            
+            if ( empty( $this->owner->Guid ) ) {
+                $guid              = AppManager::Guid();
+                $this->owner->Guid = $guid;
+            }
+            
+        }
+        
+        
     }
-    
-    
 }
