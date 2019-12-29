@@ -16,72 +16,72 @@
  *
  */
 
-namespace InsiteApps\Assets;
+namespace InsiteApps\Assets {
 
+    use SilverStripe\ORM\DataExtension;
 
-use SilverStripe\ORM\DataExtension;
+    class ImageExtension extends DataExtension
+    {
+        /**
+         * @param $gd
+         * @param $width
+         * @param $height
+         *
+         * @return mixed
+         */
+        public function generateCroppedResize($gd, $width, $height)
+        {
+            return $gd->croppedResize($width, $height);
+        }
 
-class ImageExtension extends DataExtension
-{
-    /**
-     * @param $gd
-     * @param $width
-     * @param $height
-     *
-     * @return mixed
-     */
-    public function generateCroppedResize( $gd, $width, $height )
-    {
-        return $gd->croppedResize( $width, $height );
-    }
-    
-    /**
-     * @param $gd
-     * @param $width
-     * @param $height
-     *
-     * @return mixed
-     */
-    public function generatePaddedResize( $gd, $width, $height )
-    {
-        return $gd->paddedResize( $width, $height );
-    }
-    
-    public function generateFittedResize( $gd, $width, $height )
-    {
-        return $gd->fittedResize( $width, $height );
-    }
-    
-    public function generateResize( $gd, $width, $height )
-    {
-        return $gd->resize( $width, $height );
-    }
-    
-    public function generateResizeByWidth( $gd, $width )
-    {
-        return $gd->resizeByWidth( $width );
-    }
-    
-    /**
-     * @param $gd
-     * @param $height
-     *
-     * @return mixed
-     */
-    public function generateResizeByHeight( $gd, $height )
-    {
-        return $gd->resizeByHeight( $height );
-    }
-    
-    /**
-     * @param $gd
-     * @param $width
-     * @param $height
-     *
-     * @return mixed
-     */
-    public function generateResizeRatio( $gd, $width, $height )
-    {
-        return $gd->resizeRatio( $width, $height );
+        /**
+         * @param $gd
+         * @param $width
+         * @param $height
+         *
+         * @return mixed
+         */
+        public function generatePaddedResize($gd, $width, $height)
+        {
+            return $gd->paddedResize($width, $height);
+        }
+
+        public function generateFittedResize($gd, $width, $height)
+        {
+            return $gd->fittedResize($width, $height);
+        }
+
+        public function generateResize($gd, $width, $height)
+        {
+            return $gd->resize($width, $height);
+        }
+
+        public function generateResizeByWidth($gd, $width)
+        {
+            return $gd->resizeByWidth($width);
+        }
+
+        /**
+         * @param $gd
+         * @param $height
+         *
+         * @return mixed
+         */
+        public function generateResizeByHeight($gd, $height)
+        {
+            return $gd->resizeByHeight($height);
+        }
+
+        /**
+         * @param $gd
+         * @param $width
+         * @param $height
+         *
+         * @return mixed
+         */
+        public function generateResizeRatio($gd, $width, $height)
+        {
+            return $gd->resizeRatio($width, $height);
+        }
     }
 }
