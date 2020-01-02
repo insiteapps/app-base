@@ -6,6 +6,6 @@ namespace InsiteApps\Assets {
 
     class FittedImage extends Image
     {
-
+        private static $table_name = 'FittedImage';
     }
 }
