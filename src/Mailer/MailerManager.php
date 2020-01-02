@@ -44,7 +44,7 @@ class MailerManager extends Controller
         $parse = parse_url( $url );
         $host  = $parse[ 'host' ]; // prints 'google.com'
         
-        return "no-reply" . $host;
+        return 'no-reply' . $host;
     }
     
     /**
@@ -59,16 +59,16 @@ class MailerManager extends Controller
      */
     protected function send_email( $from, $to, $Cc, $Bcc, $subject, $template, $data, $aAttachments = [] )
     {
-        $to_name  = "";
+        $to_name  = '';
         $to_email = $to;
         if ( is_array( $to ) ) {
-            $to_email = $to[ "email" ];
-            $to_name  = $to[ "name" ];
+            $to_email = $to[ 'email' ];
+            $to_name  = $to[ 'name' ];
         }
         
         $email = Email::create();
         $email->setFrom( static::getFromAddress() );
-        if ( !is_null( $from ) ) {
+        if ( $from !== null ) {
             $email->setReplyTo( $from );
         }
         
@@ -80,7 +80,7 @@ class MailerManager extends Controller
         $email->setData( $data );
         if ( count( $aAttachments ) ) {
             foreach ( $aAttachments as $attachment ) {
-                $email->addAttachment( $attachment[ "tmp_name" ], $attachment[ "name" ] );
+                $email->addAttachment( $attachment[ 'tmp_name' ], $attachment[ 'name' ] );
             }
         }
         try {
@@ -98,10 +98,10 @@ class MailerManager extends Controller
         $oRecipients = $this->getEmailRecipients();
         if ( count( $oRecipients ) ) {
             foreach ( $oRecipients as $oRecipient ) {
-                //  $from =  isset($data[ "Email" ]) ? $data[ "Email" ] : Director::absoluteBaseURL();
-                $this->send_email( $data[ "Email" ], [
-                    "email" => $oRecipient->Email,
-                    "name"  => $oRecipient->Name,
+                //  $from =  isset($data[ 'Email' ]) ? $data[ 'Email' ] : Director::absoluteBaseURL();
+                $this->send_email( $data[ 'Email' ], [
+                    'email' => $oRecipient->Email,
+                    'name'  => $oRecipient->Name,
                 ], null, null, $subject, $template, $data );
             }
         }
@@ -115,9 +115,7 @@ class MailerManager extends Controller
      */
     function AutoResponder( array $data )
     {
-        $this->send_email( null, "patrick@insitesolutions.co.za,patrick@activesouthafrica.co.za"/* $data[ "Email" ]*/, null, null, "Thank You for your Submission", 'Email\AutoResponderMailer', $data );
-        
-        //$this->send_email('no-reply@carlislehomes.com.au', $data[ "Email" ], null, null, "Thank You", 'AutoResponderMailer', $data);
+        $this->send_email( null, $data[ 'Email' ], null, null, 'Thank You for your Submission', 'Email\AutoResponderMailer', $data );
     }
     
 }
