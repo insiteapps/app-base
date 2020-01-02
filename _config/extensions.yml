@@ -21,3 +21,7 @@ SilverStripe\Security\Security:
 SilverStripe\Forms\FormField:
   extensions:
     - InsiteApps\Forms\FormFieldExtension
+
+SilverStripe\ORM\DataObject:
+  extensions:
+    - InsiteApps\ORM\DataObjectExtension
