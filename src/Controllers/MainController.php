@@ -151,11 +151,11 @@ class MainController extends Controller
      *
      * @return array|string
      */
-    public static function cleanREQUEST( array $request = [], array $Unset = array() )
+    public static function cleanREQUEST(   $request  , array $Unset = array() )
     {
         
         $request = Convert::raw2sql( $request );
-        if ( count( $request ) ) {
+        if ($request) {
             
             
             $aUnset   = array(

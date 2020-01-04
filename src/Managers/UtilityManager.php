@@ -73,17 +73,18 @@ class UtilityManager
      */
     public static function get_object_map( $class, $key = "ID", $field = "Title" )
     {
-        $oObjs       = $class::get();
-        $objects_map = $oObjs ? $oObjs->map( $key, $field ) : array();
-        return $objects_map;
-        if ( count( $objects_map ) ) {
+        $oObjs       =  $class::get();
+
+        if ( count( $oObjs ) ) {
+
+            $objects_map  =  $oObjs->map( $key, $field );
+
             $aObjects = $objects_map->toArray();
-            
-            
+
             return $aObjects;
         }
-        
-        return false;
+
+        return [];
     }
     
     /**
