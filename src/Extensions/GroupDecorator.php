@@ -8,11 +8,13 @@ use SilverStripe\Forms\FieldList;
 */
 
 namespace InsiteApps\Extensions {
-    
+
+    use SilverStripe\CMS\Model\SiteTree;
     use SilverStripe\Forms\CheckboxField;
     use SilverStripe\Forms\FieldList;
     use SilverStripe\Forms\TreeDropdownField;
     use SilverStripe\ORM\DataExtension;
+    use SilverStripe\CMS\Model\SiteTree;
     
     class GroupDecorator extends DataExtension
     {
@@ -21,7 +23,7 @@ namespace InsiteApps\Extensions {
             'GoToAdmin' => 'Boolean',
         );
         private static $has_one = array(
-            'LinkPage' => 'SiteTree',
+            'LinkPage' => SiteTree:::class,
         );
         
         public function updateCMSFields( FieldList $fields )
