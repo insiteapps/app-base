@@ -14,8 +14,7 @@ namespace InsiteApps\Extensions {
     use SilverStripe\Forms\FieldList;
     use SilverStripe\Forms\TreeDropdownField;
     use SilverStripe\ORM\DataExtension;
-    use SilverStripe\CMS\Model\SiteTree;
-    
+
     class GroupDecorator extends DataExtension
     {
         
