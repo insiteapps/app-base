@@ -1,20 +1,27 @@
-var AjaxFormMainValidator = function () {
+
+var AjaxValidateSubmit = function () {
 
     return {
-        validate: function (form, aRequiredFields, prefix, canSubmit) {
+        init: function (form, aRequiredFields, submit, prefix) {
+            if (typeof submit === 'undefined') {
+                submit = false;
+            }
+
+            if (typeof prefix === 'undefined') {
+                prefix = null;
+            }
 
             var valid = AjaxValidator.IsValid(form, aRequiredFields, prefix);
-            //   console.log(canSubmit);
-            if (valid) {
-                if (canSubmit) {
-                    return AjaxFormMainValidator.submit(form);
-                } else {
-                    return 'Validate';
+            if (submit) {
+                if (valid) {
+                    return AjaxValidateSubmit.submit(form);
                 }
             }
+
+            return valid;
         },
         submit: function (form) {
-            AjaxLoading.start(form.attr('id'));
+
             var messageArea = form.find('.message');
             form.ajaxSubmit({
                 dataType: 'json',
@@ -27,16 +34,13 @@ var AjaxFormMainValidator = function () {
 
                     messageArea.html('');
                     messageArea.html(data.message);
-                    messageArea.addClass("good");
-                    $('html, body').animate({
-                        scrollTop: $(form.attr('id')).offset().top
-                    }, 1000);
+                    //messageArea.addClass("good col-sm-4");
                     messageArea.show();
                     form.clearForm();
                     form.resetForm();
                     //form.find('fieldset,.Actions').hide();
-                    //AjaxFormMainValidator.loadButtonAjaxStart(form, true);
-                    AjaxLoading.start(form.attr('id'), true);
+                    AjaxFormMainValidator.loadButtonAjaxStart(form, true);
+                    AjaxFormMainValidator.loadAjaxStart(form.attr('id'), true);
                 }
             });
         },
