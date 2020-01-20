@@ -81,7 +81,7 @@ var AjaxValidator = function () {
             //if any inputs on the page have the class 'needsfilled' the form will not submit
             if ($(":input").hasClass("needsfilled")) {
                 $('html, body').animate({
-                    scrollTop: $(".needsfilled").offset().top - 76
+                    scrollTop: $(".needsfilled").offset().top - 120
                 }, 1000);
                 return false;
             }
