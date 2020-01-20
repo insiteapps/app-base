@@ -3,6 +3,15 @@ var $window = $(window),
     $html = $('html'),
     $body = $('body');
 
+jQuery.browser = {};
+(function () {
+    jQuery.browser.msie = false;
+    jQuery.browser.version = 0;
+    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+        jQuery.browser.msie = true;
+        jQuery.browser.version = RegExp.$1;
+    }
+})();
 
 var AjaxLoading = function () {
     return {
