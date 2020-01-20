@@ -29,7 +29,7 @@ namespace InsiteApps\Extensions {
         {
 
             $fields->addFieldToTab('Root.Members', new CheckboxField('GoToAdmin', ' Go to Admin area'), 'Members');
-            $fields->addFieldToTab('Root.Members', new TreeDropdownField('LinkPageID', 'Or select a Page to redirect to', 'SiteTree'), 'Members');
+            $fields->addFieldToTab('Root.Members', new TreeDropdownField('LinkPageID', 'Or select a Page to redirect to', SiteTree::class), 'Members');
         }
 
     }
