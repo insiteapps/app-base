@@ -1,56 +1,40 @@
-(function ($) {
-    "use strict";
-    /*global jQuery, document, window*/
-
-    $.fn.getInputType = function () {
-        return this[0].tagName === "INPUT" ? this[0].type.toLowerCase() : this[0].tagName.toLowerCase();
-    }
-
-
-}(jQuery));
+/**
+ * Javascript-Template, needs to be evaluated by Requirements::javascriptTemplate
+ */
+$.fn.getInputType = function () {
+    return this[0].tagName == "INPUT" ? this[0].type.toLowerCase() : this[0].tagName.toLowerCase();
+}
 
 var AjaxValidator = function () {
     return {
-        IsValid: function (form, aRequiredFields) {
+        IsValid: function (form, aRequiredFields, prefix) {
 
+            if (typeof prefix === 'undefined') {
+                prefix = '';
+            }
 
             if (aRequiredFields.length && (typeof aRequiredFields !== 'undefined')) {
                 //Validate required fields
                 for (var i = 0; i < aRequiredFields.length; i++) {
-                    var input = $('#' + aRequiredFields[i]);
-
+                    var input = $('#' + prefix + aRequiredFields[i]);
                     var isSelect = (input.getInputType() === 'select');
-
                     var inputVal = input.val();
-
                     var inputLabel = input.closest('div.field').find('label').text();
                     var inputName = (input.attr('placeholder')) ? input.attr('placeholder') : input.attr('name');
-
                     var inputTitle = inputLabel ? inputLabel : inputName;
-
                     var fieldErrorMsg = '"' + $.trim(inputTitle) + '" is required';
-
                     if ((!inputVal) || (inputVal === fieldErrorMsg)) {
                         input.addClass("needsfilled");
                         if (isSelect) {
-                            //console.log(aRequiredFields[i] + " - " + isSelect);
-                            var errSpan = '<span class="message required">' + fieldErrorMsg + '</span>';
+                            console.log(aRequiredFields[i] + " - " + isSelect);
+                            var errSpan = '<span class="errSpan message required">' + fieldErrorMsg + '</span>';
                             var SelectHolder = input.closest('div.field');
                             if (!SelectHolder.hasClass("needsfilled")) {
-                                SelectHolder.addClass("needsfilled");
-                                SelectHolder.append(errSpan);
+                                //SelectHolder.addClass("needsfilled");
+                                //SelectHolder.append(errSpan);
+
                             }
-
-
-                            /*
-
-
-                             input.closest('div').find('.chosen-container-single').addClass("needsfilled");
-                             input.find('option').removeAttr('selected').trigger("chosen:updated");
-                             var optionNeedsfilled = "<option class=\"needsfilled\" value=\"\" disabled selected='selected'>" + fieldErrorMsg + "</option>";
-                             input.prepend(optionNeedsfilled);
-                             input.trigger("chosen:updated");
-                             */
+                            input.append('<option class="needsfilled" value="" selected="selected">'+fieldErrorMsg+'</option>');
                         } else {
                             input.val(fieldErrorMsg);
                         }
@@ -78,27 +62,32 @@ var AjaxValidator = function () {
 
             // Clears any fields in the form when the user clicks on them
             $(":input").focus(function () {
-                if ($(this).hasClass("needsfilled")) {
-                    if ($(this).getInputType() === 'select') {
-                        $(this).find('option.needsfilled').remove();
-                        $(this).closest('div.field').addClass('needsfilled-done');
+
+                var input = $(this);
+
+                if (input.hasClass("needsfilled")) {
+                    if (input.getInputType() === 'select') {
+                        input.find('option.needsfilled').remove();
+                        input.closest('div.field').addClass('needsfilled-done');
                     } else {
-                        $(this).val("");
+                        input.val("");
 
                     }
-                    $(this).removeClass("needsfilled");
+                    input.removeClass("needsfilled");
                 }
-                var id = $(this).id;
+
+
             });
             //if any inputs on the page have the class 'needsfilled' the form will not submit
             if ($(":input").hasClass("needsfilled")) {
                 $('html, body').animate({
-                    scrollTop: $(".needsfilled").offset().top
+                    scrollTop: $(".needsfilled").offset().top - 76
                 }, 1000);
+                return false;
             }
 
 
             return true;
         }
-    };
+    }
 }();
