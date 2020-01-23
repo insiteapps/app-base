@@ -27,12 +27,12 @@ use SilverStripe\Security\Security;
 
 class MembershipLoginHandler extends LoginHandler
 {
-    
+
     private static $allowed_actions = [
         'doLogin',
     ];
-    
-    
+
+
     /**
      * Send user to the right location after login
      *
@@ -40,45 +40,44 @@ class MembershipLoginHandler extends LoginHandler
      */
     protected function redirectAfterSuccessfulLogin()
     {
-        
-        
+
+
         // Check password expiry
         if ( Security::getCurrentUser()->isPasswordExpired() ) {
             // Redirect the user to the external password change form if necessary
             return $this->redirectToChangePassword();
         }
-        
-        
+
+
         $oMember = Security::getCurrentUser();
-        
+
         $oGroups = Group::get();
         if ( $oMember ) {
             foreach ( $oGroups as $oGroup ) {
-                if ( $oMember->inGroup( $oGroup->ID ) && $oGroup->GoToAdmin == 1 ) {
-                    $this->redirect( Director::baseURL() . 'admin' );
-                    
-                    return true;
-                } elseif ( $oMember->inGroup( $oGroup->ID ) && $oGroup->LinkPageID != 0 ) {
+                if ( $oMember->inGroup($oGroup->ID) && $oGroup->GoToAdmin == 1 ) {
+                    return $this->redirect(Director::baseURL() . 'admin');
+
+                } elseif ( $oMember->inGroup($oGroup->ID) && $oGroup->LinkPageID != 0 ) {
                     $pageLink = $oGroup->LinkPage()->Link();
-                    $this->redirect( $pageLink );
-                    
-                    return true;
+
+                    return $this->redirect($pageLink);
+
                 }
             }
         }
-        
+
         // Debug::show( $oMember );
-        
+
         //   return;
-        
-        if ( isset( $_REQUEST[ 'BackURL' ] ) && $_REQUEST[ 'BackURL' ] && Director::is_site_url( $_REQUEST[ 'BackURL' ] ) ) {
+
+        if ( isset($_REQUEST[ 'BackURL' ]) && $_REQUEST[ 'BackURL' ] && Director::is_site_url($_REQUEST[ 'BackURL' ]) ) {
             $BackURL = $_REQUEST[ 'BackURL' ];
-            
-            return $this->redirect( $BackURL );
+
+            return $this->redirect($BackURL);
         } else {
-            return $this->redirect( '/' );
+            return $this->redirect('/');
         }
-        
-        return $this->redirect( '/' );
+
+        return $this->redirect('/');
     }
 }
