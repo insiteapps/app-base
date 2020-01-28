@@ -20,6 +20,7 @@
 namespace InsiteApps\Essentials\Extensions {
     
     use DirectApp\Managers\AppManager;
+    use InsiteApps\Common\Manager;
     use SilverStripe\ORM\DataExtension;
     use SilverStripe\Forms\FieldList;
     use SilverStripe\Forms\ReadonlyField;
@@ -45,7 +46,7 @@ namespace InsiteApps\Essentials\Extensions {
             
             
             if ( empty( $this->owner->Guid ) ) {
-                $guid              = AppManager::Guid();
+                $guid              = Manager::Guid();
                 $this->owner->Guid = $guid;
             }
             
