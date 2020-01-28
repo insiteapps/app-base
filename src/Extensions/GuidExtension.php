@@ -36,7 +36,7 @@ namespace InsiteApps\Essentials\Extensions {
         {
             
             $fields->removeByName( [ 'Guid' ] );
-            
+            $fields->addFieldToTab( 'Root.Main', ReadonlyField::create( 'Guid' ) );
         }
         
         public function onBeforeWrite()
