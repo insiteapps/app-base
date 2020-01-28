@@ -41,15 +41,12 @@ namespace InsiteApps\Essentials\Extensions {
         
         public function onBeforeWrite()
         {
-            
-            parent::onBeforeWrite();
-            
-            
+          
             if ( empty( $this->owner->Guid ) ) {
                 $guid              = Manager::Guid();
                 $this->owner->Guid = $guid;
             }
-            
+            parent::onBeforeWrite();
         }
         
         
