@@ -1,1 +1,62 @@
 @import "common_varibales";
+
+
+.action-control {
+  text-align: right;
+  a {
+
+    &.delete-record {
+      color: $red;
+    }
+    i {
+      font-size: 1em;
+    }
+    &:hover,
+    &:focus {
+      text-decoration: none;
+
+    }
+  }
+}
+
+
+.action-control {
+  text-align: right;
+  a {
+
+    &.delete-record {
+      color: $red;
+    }
+    i {
+      font-size: 1em;
+    }
+    &:hover,
+    &:focus {
+      text-decoration: none;
+
+    }
+  }
+}
+
+
+.chosen-container-multi .chosen-choices {
+  padding: 2px 5px 3px;
+}
+
+.chosen-container {
+  width: 100% !important;
+  .chosen-single {
+    height: 34px !important;
+    @include border-radius(0 !important);
+
+    span {
+      line-height: 34px !important
+    }
+  }
+}
+
+.btn {
+  &.CancelFormAction {
+    margin-left: 15px;
+  }
+}
