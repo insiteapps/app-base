@@ -48,6 +48,31 @@
   }
 }
 
+@mixin bp-xlg {
+  @media only screen and (min-width: 992px) {
+    @content;
+  }
+}
+
+@mixin bp-lg {
+  @media (min-width: 767px) and (max-width: 992px) {
+    @content;
+  }
+}
+
+@mixin bp-md {
+  @media only screen and (max-width: 767.99px) {
+    @content;
+  }
+}
+
+@mixin bp-sm {
+  @media (max-width: 575.99px) {
+    @content;
+  }
+}
+
+
 @mixin vertical-align($position: relative) {
   position: $position;
   top: 50%;
