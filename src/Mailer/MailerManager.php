@@ -25,8 +25,12 @@ use SilverStripe\SiteConfig\SiteConfig;
 
 class MailerManager extends Controller
 {
-    
-    
+
+    /**
+     * @var string
+     */
+    protected static $from_email = 'no-reply@insiteapps.co.za';
+
     /**
      * @return \SilverStripe\ORM\DataList
      */
