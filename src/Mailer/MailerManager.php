@@ -31,6 +31,7 @@ class MailerManager extends Controller
      */
     protected static $from_email = 'no-reply@insiteapps.co.za';
 
+
     /**
      * @return \SilverStripe\ORM\DataList
      */
