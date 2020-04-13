@@ -21,6 +21,7 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\Email\Email;
 use SilverStripe\Dev\Debug;
+use SilverStripe\SiteConfig\SiteConfig;
 
 class MailerManager extends Controller
 {
@@ -34,11 +35,56 @@ class MailerManager extends Controller
         
         return EmailRecipient::get();
     }
-    
+
+    public function getFromAddress()
+    {
+        $fromEmailAddress = static::$from_email;
+        $oConfig          = SiteConfig::current_site_config();
+        if ( $oConfig->FromEmailAddress ) {
+            $fromEmailAddress = $oConfig->FromEmailAddress;
+        }
+
+        return array(
+            'email' => $fromEmailAddress,
+            'name'  => SiteConfig::current_site_config()->Title,
+        );
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public static function FromEmailAddress()
+    {
+        $fromEmailAddress = static::$from_email;
+        $oConfig          = SiteConfig::current_site_config();
+        if ( $oConfig->FromEmailAddress ) {
+            $fromEmailAddress = $oConfig->FromEmailAddress;
+        }
+        return $fromEmailAddress;
+    }
+
+
+
+    /**
+     * @return mixed|string
+     */
+    public static function getFromEmailAddress()
+    {
+
+        $fromEmailAddress = static::$from_email;
+        $oConfig          = SiteConfig::current_site_config();
+        if ( $oConfig->FromEmailAddress ) {
+            $fromEmailAddress = $oConfig->FromEmailAddress;
+        }
+
+        return $fromEmailAddress;
+    }
+
+
     /**
      * @return string
      */
-    protected static function getFromAddress()
+    protected static function getFromAddress_()
     {
         $url   = Director::absoluteURL( Director::absoluteBaseURL() );
         $parse = parse_url( $url );
