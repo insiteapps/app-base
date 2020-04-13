@@ -35,7 +35,7 @@ class MailerManager extends Controller
     /**
      * @return \SilverStripe\ORM\DataList
      */
-    private function getEmailRecipients()
+    public function getEmailRecipients()
     {
         
         return EmailRecipient::get();
