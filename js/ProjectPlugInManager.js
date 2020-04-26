@@ -1,6 +1,6 @@
 var $window = $(window),
     $document = $(document),
-    $html = $('html'),
+    $html = $('html'), jsArray = [],
     $body = $('body');
 
 jQuery.browser = {};
