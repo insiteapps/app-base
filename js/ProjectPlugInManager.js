@@ -134,7 +134,7 @@ function loadScript(scriptName, callback) {
         jsArray[scriptName] = promise.promise();
 
     } else if (debugState)
-        root.root.console.log("This script was already loaded %c: " + scriptName, debugStyle_warning);
+        console.log("This script was already loaded %c: " + scriptName);
 
     jsArray[scriptName].then(function () {
         if (typeof callback === 'function')
