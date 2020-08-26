@@ -106,6 +106,49 @@ var _aj = function () {
     };
 }();
 
+let _ajx = () => {
+    let _c = (xhr, textStatus) => {
+        console.log(xhr.status);
+        console.log(textStatus);
+
+    }, _e = (xhr, status, thrownError, error) => {
+
+        if (status === "timeout") {
+            console.log("got timeout");
+        } else {
+            console.log(status);
+        }
+
+        //alert('Sorry there has been an error');
+        //console.log(status);
+        //console.log(xhr.status);
+        //console.log(thrownError);
+
+    }, _bs = () => {
+
+    }
+
+
+    return {
+        i: (u, d, s, c, e, b, t, dt) => {
+            $.ajax({
+                url: u,
+                type: t ? t : 'POST',
+                dataType: dt ? dt : 'json',
+                data: d,
+                success: s,
+                complete: c ? c : _c,
+                beforeSend: b ? b : _bs,
+                error: e ? e : _e,
+                cache: true,
+                async: true,
+                timeout: 10000
+            });
+        },
+
+    };
+
+}
 
 function loadScript(scriptName, callback) {
 
