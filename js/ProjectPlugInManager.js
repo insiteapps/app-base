@@ -150,6 +150,7 @@ let _ajx = () => {
 
 }();
 
+
 function loadScript(scriptName, callback) {
 
     if (!jsArray[scriptName]) {
