@@ -148,7 +148,7 @@ let _ajx = () => {
 
     };
 
-}
+}();
 
 function loadScript(scriptName, callback) {
 
