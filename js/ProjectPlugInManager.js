@@ -106,7 +106,7 @@ var _aj = function () {
     };
 }();
 
-let _ajx = () => {
+let _ajx = function () {
     let _c = (xhr, textStatus) => {
         console.log(xhr.status);
         console.log(textStatus);
