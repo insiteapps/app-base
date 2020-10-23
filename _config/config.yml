@@ -3,8 +3,9 @@ Name: MyAuth
 After:
   - '#coresecurity'
 ---
-SilverStripe\Core\Injector\Injector:
-  SilverStripe\Security\Security:
-    properties:
-      Authenticators:
-        default: %$InsiteApps\Security\MemberAuthenticator\MembershipAuthenticator
+
+#SilverStripe\Core\Injector\Injector:
+#  SilverStripe\Security\Security:
+#    properties:
+#      Authenticators:
+#        default: %$InsiteApps\Security\MemberAuthenticator\MembershipAuthenticator
