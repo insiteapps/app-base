@@ -29,12 +29,6 @@ class EnquiryManager
     
     const THANK_YOU_ON_COMPLETE = "Thank you for you Enquiry.";
     
-    public function __construct()
-    {
-        parent::__construct();
-        
-    }
-    
     public static function getMessages( $code )
     {
         
