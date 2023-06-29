@@ -28,12 +28,6 @@ class UtilityManager
 {
     use Injectable;
 
-    public function __construct()
-    {
-        parent::__construct();
-
-    }
-
     public static function includeSpectrum()
     {
 
